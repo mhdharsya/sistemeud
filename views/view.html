@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Malware - Malware Evidence System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex h-16 relative items-center">
+                <!-- Logo di kiri -->
+                <div class="flex-shrink-0">
+                    <img src="../assets/images/LOGO PT SEMEN PADANG .png" alt="Semen Padang Logo" class="h-8 w-8">
+                </div>
+                
+                <!-- Menu di tengah -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full">
+                    <div class="hidden md:flex md:space-x-8 h-full items-center">
+                        <a href="home.html" class="h-full border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 border-b-2 text-sm font-medium">
+                            Home
+                        </a>
+                        <a href="upload.html" class="h-full border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 border-b-2 text-sm font-medium">
+                            Upload Malware
+                        </a>
+                        <a href="../pages/analisis.html" class="h-full border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 border-b-2 text-sm font-medium">
+                            Analisis
+                        </a>
+                        <a href="history.html" class="h-full border-b-2 border-black text-gray-900 inline-flex items-center px-1 text-sm font-medium">
+                            Riwayat Malware
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Back button -->
+        <div class="mb-4">
+            <a href="../pages/history.html" class="inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
+                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Kembali ke Riwayat
+            </a>
+        </div>
+
+        <!-- Detail Card -->
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <!-- Header -->
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900">Detail Malware</h2>
+            </div>
+
+            <!-- Content -->
+            <div class="px-6 py-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Basic Information -->
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Informasi Dasar</h3>
+                        <dl class="grid grid-cols-1 gap-4">
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Nama File</dt>
+                                <dd class="mt-1 text-sm text-gray-900">malicious.exe</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Jenis Malware</dt>
+                                <dd class="mt-1">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                        Trojan
+                                    </span>
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Risk Level</dt>
+                                <dd class="mt-1">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        High
+                                    </span>
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Tanggal Upload</dt>
+                                <dd class="mt-1 text-sm text-gray-900">2024-01-10 14:30:00</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Status</dt>
+                                <dd class="mt-1">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        Analyzed
+                                    </span>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <!-- Technical Details -->
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Detail Teknis</h3>
+                        <dl class="grid grid-cols-1 gap-4">
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">File Hash (SHA-256)</dt>
+                                <dd class="mt-1 text-sm text-gray-900 break-all">8a9d...f3e2</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">File Size</dt>
+                                <dd class="mt-1 text-sm text-gray-900">2.4 MB</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">File Type</dt>
+                                <dd class="mt-1 text-sm text-gray-900">Windows Executable (.exe)</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Detected Behaviors</dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Registry Modification</li>
+                                        <li>Network Communication</li>
+                                        <li>Process Injection</li>
+                                    </ul>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <!-- Analysis Results -->
+                <div class="mt-8">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Hasil Analisis</h3>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <p class="text-sm text-gray-700">
+                            Malware ini teridentifikasi sebagai Trojan dengan tingkat risiko tinggi. Beberapa karakteristik berbahaya yang terdeteksi termasuk kemampuan untuk memodifikasi registry Windows, melakukan komunikasi dengan server command & control, dan menginjeksi kode berbahaya ke proses lain.
+                        </p>
+                        <div class="mt-4">
+                            <h4 class="text-sm font-medium text-gray-900">Rekomendasi:</h4>
+                            <ul class="mt-2 list-disc pl-5 text-sm text-gray-700 space-y-1">
+                                <li>Isolasi sistem yang terinfeksi</li>
+                                <li>Update antivirus dan sistem operasi</li>
+                                <li>Scan menyeluruh pada sistem</li>
+                                <li>Monitor aktivitas jaringan yang mencurigakan</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="mt-8 flex justify-end space-x-4">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Download Report
+                    </button>
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        Delete Record
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

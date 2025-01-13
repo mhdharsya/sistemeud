@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Analisis Malware - Malware Evidence System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex h-16 relative items-center">
+                <!-- Logo di kiri -->
+                <div class="flex-shrink-0">
+                    <img src="../assets/images/LOGO PT SEMEN PADANG .png" alt="Semen Padang Logo" class="h-8 w-8">
+                </div>
+                
+                <!-- Menu di tengah -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full">
+                    <div class="hidden md:flex md:space-x-8 h-full items-center">
+                        <a href="home.html" class="h-full border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 border-b-2 text-sm font-medium">
+                            Home
+                        </a>
+                        <a href="upload.html" class="h-full border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 border-b-2 text-sm font-medium">
+                            Upload Malware
+                        </a>
+                        <a href="analysis.html" class="h-full border-b-2 border-black text-gray-900 inline-flex items-center px-1 text-sm font-medium">
+                            Analisis
+                        </a>
+                        <a href="history.html" class="h-full border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 border-b-2 text-sm font-medium">
+                            Riwayat Malware
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Back button -->
+        <div class="mb-4 px-4 sm:px-0">
+            <a href="history.html" class="inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
+                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Kembali
+            </a>
+        </div>
+
+        <!-- Form Card -->
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Input Hasil Analisis Malware</h3>
+                <p class="mt-1 text-sm text-gray-500">Masukkan detail hasil analisis malware yang telah dilakukan</p>
+            </div>
+
+            <form class="px-4 py-5 sm:p-6">
+                <!-- File Info Section -->
+                <div class="mb-8">
+                    <h4 class="text-md font-medium text-gray-900 mb-4">Informasi File</h4>
+                    <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Nama File</label>
+                            <div class="mt-1">
+                                <input type="text" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" value="malicious.exe" readonly>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">File Hash (SHA-256)</label>
+                            <div class="mt-1">
+                                <input type="text" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" value="8a9d...f3e2" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Results Section -->
+                <div class="mb-8">
+                    <h4 class="text-md font-medium text-gray-900 mb-4">Hasil Analisis</h4>
+                    <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Jenis Malware</label>
+                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <option>Pilih jenis...</option>
+                                <option>Virus</option>
+                                <option>Trojan</option>
+                                <option>Ransomware</option>
+                                <option>Spyware</option>
+                                <option>Worm</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">File Type</label>
+                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <option>Pilih type...</option>
+                                <option>.exe</option>
+                                <option>.pdf</option>
+                                <option>.xlsx</option>
+                                <option>.apk</option>
+                            </select>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700">Karakteristik Malware</label>
+                            <div class="mt-1">
+                                <div class="flex flex-wrap gap-2">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                        <span class="ml-2 text-sm text-gray-600">Registry Modification</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                        <span class="ml-2 text-sm text-gray-600">Network Communication</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                        <span class="ml-2 text-sm text-gray-600">Process Injection</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                        <span class="ml-2 text-sm text-gray-600">File System Changes</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700">Detail Analisis</label>
+                            <div class="mt-1">
+                                <textarea rows="4" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Masukkan detail hasil analisis..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations Section -->
+                <div class="mb-8">
+                    <h4 class="text-md font-medium text-gray-900 mb-4">Rekomendasi</h4>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Tindakan yang Disarankan</label>
+                        <div class="mt-1">
+                            <textarea rows="4" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Masukkan rekomendasi penanganan..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex justify-end space-x-3">
+                    <button type="button" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Batal
+                    </button>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Simpan Analisis
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
