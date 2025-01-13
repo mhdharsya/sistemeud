@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Malware - Malware Evidence System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <%- include('../include/header') %>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-2xl font-semibold text-gray-900">Dashboard Analisis Malware</h1>
+                <p class="mt-2 text-sm text-gray-700">Analisis statistik dan tren malware dalam sistem</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <dt class="text-sm font-medium text-gray-500 truncate">Total Malware</dt>
+                        <dd class="mt-1 text-3xl font-semibold text-gray-900">156</dd>
+                    </div>
+                </div>
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <dt class="text-sm font-medium text-gray-500 truncate">High Risk Malware</dt>
+                        <dd class="mt-1 text-3xl font-semibold text-red-600">45</dd>
+                    </div>
+                </div>
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <dt class="text-sm font-medium text-gray-500 truncate">Detected This Month</dt>
+                        <dd class="mt-1 text-3xl font-semibold text-gray-900">23</dd>
+                    </div>
+                </div>
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <dt class="text-sm font-medium text-gray-500 truncate">Resolved Cases</dt>
+                        <dd class="mt-1 text-3xl font-semibold text-green-600">132</dd>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Malware Types Distribution -->
+                <div class="bg-white shadow rounded-lg p-6">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Distribusi Jenis Malware</h2>
+                    <div class="h-80">
+                        <canvas id="malwareTypeChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Monthly Trend -->
+                <div class="bg-white shadow rounded-lg p-6">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Tren Bulanan</h2>
+                    <div class="h-80">
+                        <canvas id="monthlyTrendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Analysis Table -->
+            <div class="bg-white shadow rounded-lg">
+                <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900">Analisis Terbaru</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama File</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jenis</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Risk Level</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Analisis</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">malicious.exe</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Trojan</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">High</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-10</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Complete</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    <a href="#" class="text-blue-600 hover:text-blue-900">View Details</a>
+                                </td>
+                            </tr>
+                            <!-- More rows... -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Initialization -->
+    <script>
+        // Malware Types Distribution Chart
+        const typeCtx = document.getElementById('malwareTypeChart').getContext('2d');
+        new Chart(typeCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Trojan', 'Virus', 'Ransomware', 'Spyware', 'Worm'],
+                datasets: [{
+                    data: [45, 25, 20, 15, 10],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Monthly Trend Chart
+        const trendCtx = document.getElementById('monthlyTrendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Detected Malware',
+                    data: [15, 25, 20, 30, 28, 23],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <%- include('../include/footer') %>
+</body>
+</html>
