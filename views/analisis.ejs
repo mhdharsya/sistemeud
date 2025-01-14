@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Analisis Malware - Malware Evidence System</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        body {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        /* Ensure the body can still scroll */
+        html, body {
+            overflow: auto;
+            height: 100%;
+            margin: 0;
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
     <!-- Navbar -->
@@ -12,7 +29,7 @@
 
                 
                 <!-- Menu di tengah -->
-                <div class="absolute left-1/2 transform -translate-x-1/2 h-full">
+                <!-- <div class="absolute left-1/2 transform -translate-x-1/2 h-full">
                     <div class="hidden md:flex md:space-x-8 h-full items-center">
                         <a href="home.html" class="h-full border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 border-b-2 text-sm font-medium">
                             Home
@@ -30,10 +47,10 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 pt-24">
         <!-- Header -->
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="sm:flex sm:items-center">
@@ -106,7 +123,7 @@
                                         <span class="inline-flex rounded-full bg-gray-100 px-2 text-xs font-semibold leading-5 text-gray-800">Pending Analysis</span>
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm">
-                                        <a href="detailAnalisis.html" class="text-blue-600 hover:text-blue-900">Analisis</a>
+                                        <a href="detailAnalisis" class="text-blue-600 hover:text-blue-900">Analisis</a>
                                     </td>
                                 </tr>
                                 <!-- More rows... -->

@@ -1,28 +1,28 @@
-<nav class="bg-white shadow-lg">
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="flex h-16 relative items-center">
-            <!-- Logo di kiri -->
-            <div class="flex-shrink-0">
-                <img src="/assets/image/logo.png" alt="Semen Padang Logo" class="h-8 w-8">
-            </div>
-            
-            <!-- Menu di tengah -->
-            <div class="absolute left-1/2 transform -translate-x-1/2 h-full">
-                <div class="hidden md:flex md:space-x-8 h-full items-center">
-                    <a href="dashboard" class="h-full border-b-2 border-black text-gray-900 inline-flex items-center px-1 text-sm font-medium">
-                        Home
-                    </a>
-                    <a href="upload" class="h-full border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 border-b-2 text-sm font-medium">
-                        Upload Malware
-                    </a>
-                    <a href="analisis" class="h-full border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 border-b-2 text-sm font-medium">
-                        Analisis
-                    </a>
-                    <a href="riwayat" class="h-full border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 border-b-2 text-sm font-medium">
-                        Riwayat Malware
-                    </a>
-                </div>
-            </div>
+<nav class="bg-white shadow-lg fixed top-0 left-0 w-full z-50">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex h-16 relative items-center">
+      <!-- Logo di kiri -->
+      <div class="flex-shrink-0">
+        <img src="/assets/image/logo.png" alt="Semen Padang Logo" class="h-8 w-8">
+      </div>
+      
+      <!-- Menu di tengah -->
+      <div class="absolute left-1/2 transform -translate-x-1/2 h-full">
+        <div class="hidden md:flex md:space-x-8 h-full items-center">
+          <a href="dashboard" class="h-full border-b-2 <%= activePage === 'dashboard' ? 'border-black text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' %> inline-flex items-center px-1 text-sm font-medium">
+            Dashboard
+          </a>
+          <a href="upload" class="h-full border-b-2 <%= activePage === 'upload' ? 'border-black text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' %> inline-flex items-center px-1 text-sm font-medium">
+            Upload Malware
+          </a>
+          <a href="/analisis" class="h-full border-b-2 <%= activePage === 'analisis' ? 'border-black text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' %> inline-flex items-center px-1 text-sm font-medium">
+            Analisis
+          </a>
+          <a href="/riwayat" class="h-full border-b-2 <%= activePage === 'riwayat' ? 'border-black text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' %> inline-flex items-center px-1 text-sm font-medium">
+            Riwayat
+          </a>
         </div>
+      </div>
     </div>
+  </div>
 </nav>
