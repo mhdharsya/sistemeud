@@ -3,18 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analisis Malware - Malware Evidence System</title>
+    <title>Dashboard EUD</title>
+    <link rel="icon" href="/assets/image/logo.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        body {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        /* Ensure the body can still scroll */
+        html, body {
+            overflow: auto;
+            height: 100%;
+            margin: 0;
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
     <!-- Navbar -->
     <%- include('../include/header') %>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 pt-16">
+        <!-- Header -->
         <div class="px-4 py-6 sm:px-0">
-            <!-- Header -->
             <div class="mb-8">
                 <h1 class="text-2xl font-semibold text-gray-900">Dashboard Analisis Malware</h1>
                 <p class="mt-2 text-sm text-gray-700">Analisis statistik dan tren malware dalam sistem</p>
@@ -48,27 +66,8 @@
                 </div>
             </div>
 
-            <!-- Charts Section -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <!-- Malware Types Distribution -->
-                <div class="bg-white shadow rounded-lg p-6">
-                    <h2 class="text-lg font-medium text-gray-900 mb-4">Distribusi Jenis Malware</h2>
-                    <div class="h-80">
-                        <canvas id="malwareTypeChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Monthly Trend -->
-                <div class="bg-white shadow rounded-lg p-6">
-                    <h2 class="text-lg font-medium text-gray-900 mb-4">Tren Bulanan</h2>
-                    <div class="h-80">
-                        <canvas id="monthlyTrendChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Analysis Table -->
-            <div class="bg-white shadow rounded-lg">
+             <!-- Recent Analysis Table -->
+             <div class="bg-white shadow rounded-lg">
                 <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
                     <h3 class="text-lg font-medium text-gray-900">Analisis Terbaru</h3>
                 </div>
@@ -106,6 +105,27 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 pt-10">
+                <!-- Malware Types Distribution -->
+                <div class="bg-white shadow rounded-lg p-6">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Distribusi Jenis Malware</h2>
+                    <div class="h-80">
+                        <canvas id="malwareTypeChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Monthly Trend -->
+                <div class="bg-white shadow rounded-lg p-6">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Tren Bulanan</h2>
+                    <div class="h-80">
+                        <canvas id="monthlyTrendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+           
         </div>
     </div>
 
