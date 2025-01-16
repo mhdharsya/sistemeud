@@ -5,30 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard EUD</title>
     <link rel="icon" href="/assets/image/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        body::-webkit-scrollbar {
-            display: none;
-        }
-        /* Hide scrollbar for IE, Edge and Firefox */
-        body {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
-        /* Ensure the body can still scroll */
-        html, body {
-            overflow: auto;
-            height: 100%;
-            margin: 0;
-        }
-    </style>
 </head>
-<body class="bg-gray-50">
     <!-- Navbar -->
     <%- include('../include/header') %>
-
+<body class="bg-gray-50 fade-out">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 pt-16">
         <!-- Header -->
@@ -189,5 +172,6 @@
         });
     </script>
     <%- include('../include/footer') %>
+    <script src="/stylesheets/animasiHalaman.js" defer></script>
 </body>
 </html>

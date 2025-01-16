@@ -1,29 +1,18 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
 
-a {
-  color: #00B7FF;
-}
-
-nav {
-  all: unset
-}
-
-html, body {
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
+/* Hide scrollbar for Chrome, Safari and Opera */
 body::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
+
 /* Hide scrollbar for IE, Edge and Firefox */
 body {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
-
-
+/* Ensure the body can still scroll */
+html, body {
+    overflow: auto;
+    height: 100%;
+    margin: 0;
+}
