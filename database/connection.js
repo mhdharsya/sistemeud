@@ -1,5 +1,10 @@
 const sql = require('mssql');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+
+if (!process.env.DB_USER || !process.env.DB_PASSWORD || !process.env.DB_SERVER || !process.env.DB_NAME || !process.env.DB_PORT) {
+    throw new Error('One or more required environment variables are missing');
+}
 
 const db = {
     user: process.env.DB_USER,
