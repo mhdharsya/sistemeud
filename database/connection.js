@@ -1,24 +1,24 @@
-require('dotenv').config();
 const sql = require('mssql');
+require('dotenv').config();
 
-const config = {
-    user: process.env.AZURE_SQL_USER,
-    password: process.env.AZURE_SQL_PASSWORD,
-    server: process.env.AZURE_SQL_SERVER,
-    database: process.env.AZURE_SQL_DATABASE,
-    port: parseInt(process.env.AZURE_SQL_PORT, 10),
+const db = {
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER,
+    database: process.env.DB_NAME,
+    port: parseInt(process.env.DB_PORT, 10) || 1433,
     options: {
         encrypt: true,
         trustServerCertificate: false,
     },
 };
 
-console.log('Konfigurasi:', config);
+console.log('Konfigurasi:', db);
 
 const connectToDatabase = async () => {
     try {
         console.log('Memulai koneksi ke database...');
-        const pool = await sql.connect(config);
+        const pool = await sql.connect(db);
         console.log('Berhasil terhubung ke database.');
         return pool;
     } catch (err) {
