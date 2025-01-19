@@ -1,37 +1,38 @@
+// filepath: /d:/KP/sistemeud/routes/ruter.js
 const express = require("express");
 const router = express.Router();
-
+const authMiddleware = require('../middlewares/authMiddleware');
 
 router.get("/", (req, res) => {
-    res.redirect("/login");
-  });
-  
+  res.redirect("/login");
+});
+
 // login
 const controller1 = require("../controller/conLogin");
-router.get("/login", /*middleware.verifyToken,*/ controller1.showLogin);
+router.get("/login", controller1.showLogin);
 
 // dashboard
 const controller2 = require("../controller/conDashboard");
-router.get("/dashboard", /*middleware.verifyToken,*/ controller2.showDashboard);
+router.get("/dashboard", authMiddleware, controller2.showDashboard);
 
 // upload malware
 const controller3 = require("../controller/conUpload");
-router.get("/upload", /*middleware.verifyToken,*/ controller3.showUpload);
+router.get("/upload", authMiddleware, controller3.showUpload);
 
 // analisis
 const controller4 = require("../controller/conAnalisis");
-router.get("/analisis", /*middleware.verifyToken,*/ controller4.showAnalisis);
+router.get("/analisis", authMiddleware, controller4.showAnalisis);
 
-// input detail analisis
+// detail analisis
 const controller5 = require("../controller/conDetailAnalisis");
-router.get("/detailAnalisis", /*middleware.verifyToken,*/ controller5.showDetailAnalisis);
+router.get("/detail-analisis", authMiddleware, controller5.showDetailAnalisis);
 
 // riwayat
 const controller6 = require("../controller/conRiwayat");
-router.get("/riwayat", /*middleware.verifyToken,*/ controller6.showRiwayat);
+router.get("/riwayat", authMiddleware, controller6.showRiwayat);
 
-// detail malware di riwayat
+// detail riwayat
 const controller7 = require("../controller/conDetailRiwayat");
-router.get("/detailRiwayat", /*middleware.verifyToken,*/ controller7.showDetailRiwayat);
+router.get("/detail-riwayat", authMiddleware, controller7.showDetailRiwayat);
 
 module.exports = router;
