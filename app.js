@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv');
 const createError = require('http-errors');
-const session = require('express-session');
 const authRoutes = require('./routes/authRoutes');
 const router = require('./routes/ruter');
 const uploadMiddleware = require('./middlewares/uploadMiddleware');
@@ -23,14 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
-
-// Session middleware
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false } // Set to true if using HTTPS
-}));
 
 // Use the upload middleware
 app.use(uploadMiddleware);
