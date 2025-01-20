@@ -7,6 +7,7 @@ const createError = require('http-errors');
 const session = require('express-session');
 const authRoutes = require('./routes/authRoutes');
 const router = require('./routes/ruter');
+const uploadMiddleware = require('./middlewares/uploadMiddleware');
 
 dotenv.config();
 
@@ -30,6 +31,9 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false } // Set to true if using HTTPS
 }));
+
+// Use the upload middleware
+app.use(uploadMiddleware);
 
 // Authentication routes
 app.use('/auth', authRoutes);
