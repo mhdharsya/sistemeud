@@ -2,6 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require('../middlewares/authMiddleware');
+const uploadMiddleware = require('../middlewares/uploadMiddleware');
 
 router.get("/", (req, res) => {
   res.redirect("/login");
@@ -16,8 +17,9 @@ const controller2 = require("../controller/conDashboard");
 router.get("/dashboard", authMiddleware, controller2.showDashboard);
 
 // upload malware
-const controller3 = require("../controller/conUpload");
-router.get("/upload", authMiddleware, controller3.showUpload);
+const uploadController = require("../controller/conUpload");
+router.get("/upload", authMiddleware, uploadController.showUpload);
+router.post("/upload", authMiddleware, uploadMiddleware, uploadController.uploadMalware);
 
 // analisis
 const controller4 = require("../controller/conAnalisis");
