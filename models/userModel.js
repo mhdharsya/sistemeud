@@ -1,4 +1,3 @@
-const sql = require('mssql');
 const config = require('../config/database');
 
 const User = {
