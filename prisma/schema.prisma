@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,4 +13,89 @@ model User {
   password   String
   email      String   @unique
   created_at DateTime @default(now())
+  analysisResults AnalysisResult[]
+  malwareFiles MalwareFile[]
+}
+
+model MalwareType {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  analysisResults AnalysisResult[]
+}
+
+model MalwareFile {
+  id          Int      @id @default(autoincrement())
+  filename    String
+  file_hash   String   @unique
+  file_size   Int
+  file_type   String?
+  upload_date DateTime @default(now())
+  user_id     Int
+  status      String   @default("pending")
+  user        User     @relation(fields: [user_id], references: [id])
+  analysisResults AnalysisResult[]
+
+  @@index([upload_date], name: "idx_malware_upload_date")
+  @@index([status], name: "idx_malware_status")
+  @@index([file_hash], name: "idx_file_hash")
+}
+
+model MalwareCharacteristic {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  analysisCharacteristics AnalysisCharacteristic[]
+}
+
+model AnalysisResult {
+  id                  Int      @id @default(autoincrement())
+  malware_file_id     Int
+  malware_type_id     Int
+  risk_level          String
+  analysis_date       DateTime @default(now())
+  analyst_id          Int
+  details             String?
+  recommendations     String?
+  malwareFile         MalwareFile @relation(fields: [malware_file_id], references: [id])
+  malwareType         MalwareType @relation(fields: [malware_type_id], references: [id])
+  analyst             User        @relation(fields: [analyst_id], references: [id])
+  analysisCharacteristics AnalysisCharacteristic[]
+  analysisReports AnalysisReport[]
+  recommendationsList Recommendation[]
+
+  @@index([analysis_date], name: "idx_analysis_date")
+  @@index([risk_level], name: "idx_analysis_risk")
+}
+
+model AnalysisCharacteristic {
+  analysis_id         Int
+  characteristic_id   Int
+  analysis            AnalysisResult @relation(fields: [analysis_id], references: [id])
+  characteristic      MalwareCharacteristic @relation(fields: [characteristic_id], references: [id])
+  @@id([analysis_id, characteristic_id])
+}
+
+model RiskLevel {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  color_code  String?
+}
+
+model AnalysisReport {
+  id              Int      @id @default(autoincrement())
+  analysis_id     Int
+  report_file_path String?
+  generated_date  DateTime @default(now())
+  analysis        AnalysisResult @relation(fields: [analysis_id], references: [id])
+}
+
+model Recommendation {
+  id              Int      @id @default(autoincrement())
+  analysis_id     Int
+  action_required String?
+  priority        String?
+  status          String?
+  analysis        AnalysisResult @relation(fields: [analysis_id], references: [id])
 }
