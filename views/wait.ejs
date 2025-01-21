@@ -16,23 +16,23 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 h-screen flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-96 max-w-md mx-auto">
+<body class="bg-gray-100 h-screen flex items-center justify-center" style="background-image: url('/assets/image/bg.jpg'); background-size: cover;  background-position:center;">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-96 max-w-md mx-auto" style="background-color: rgba(255, 255, 255, 0.463); box-shadow: 0 0 40px rgba(255, 255, 255, 0.6); backdrop-filter: blur(2px);">
         <div class="flex justify-center mb-6">
-            <img src="logo.png" alt="Logo" class="w-24 h-24">
+            <img src="/assets/image/logo.png" alt="Logo" class="w-24 h-24">
         </div>
         <div class="text-center mb-6">
             <h2 class="text-2xl font-semibold text-gray-800">Link Reset Password Telah Dikirim</h2>
-            <p class="text-sm text-gray-600 mt-4">Kami telah mengirimkan link untuk reset password ke email Anda. Silakan periksa inbox atau folder spam Anda untuk melanjutkan.</p>
+            <p class="text-sm text-gray-900 mt-4">Kami telah mengirimkan link untuk reset password ke email Anda. Silakan periksa inbox atau folder spam Anda untuk melanjutkan.</p>
         </div>
-        <div class="text-center">
+        <div class="text-center" style="display: flex;">
             <a href="/auth/login" 
-               class="text-sm text-blue-600 hover:text-blue-500 transition duration-200 ease-in-out">
+               class="text-sm text-red-700 hover:text-blue-500 transition duration-200 ease-in-out ml-2">
                Kembali ke Halaman Login
             </a>
-            <p class="text-sm text-black">atau</p>
+            <p class="text-sm text-black ml-2 mr-2">atau</p>
             <a href="/auth/login" 
-            class="text-sm text-blue-600 hover:text-blue-500 transition duration-200 ease-in-out">
+            class="text-sm text-red-700 hover:text-blue-500 transition duration-200 ease-in-out">
             kirim ulang link
          </a>
         </div>

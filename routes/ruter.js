@@ -24,6 +24,10 @@ router.get("/wait", controller13.showWait);
 const controller14 = require("../controller/conReset");
 router.get("/reset", controller14.showReset);
 
+// menampilkan form isi password baru
+const controller15 = require("../controller/conRegis");
+router.get("/regis", controller15.showRegis);
+
 // dashboard
 const controller2 = require("../controller/conDashboard");
 router.get("/dashboard", authMiddleware, controller2.showDashboard);
