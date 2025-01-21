@@ -1,0 +1,41 @@
+<!-- filepath: /d:/KP/sistemeud/views/forgot-password-confirmation.ejs -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Reset Password Dikirim - Sistem Evidence Malware</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('/assets/images/background.jpg'); /* Ganti dengan path gambar Anda */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-96 max-w-md mx-auto">
+        <div class="flex justify-center mb-6">
+            <img src="logo.png" alt="Logo" class="w-24 h-24">
+        </div>
+        <div class="text-center mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800">Link Reset Password Telah Dikirim</h2>
+            <p class="text-sm text-gray-600 mt-4">Kami telah mengirimkan link untuk reset password ke email Anda. Silakan periksa inbox atau folder spam Anda untuk melanjutkan.</p>
+        </div>
+        <div class="text-center">
+            <a href="/auth/login" 
+               class="text-sm text-blue-600 hover:text-blue-500 transition duration-200 ease-in-out">
+               Kembali ke Halaman Login
+            </a>
+            <p class="text-sm text-black">atau</p>
+            <a href="/auth/login" 
+            class="text-sm text-blue-600 hover:text-blue-500 transition duration-200 ease-in-out">
+            kirim ulang link
+         </a>
+        </div>
+    </div>
+</body>
+</html>

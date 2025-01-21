@@ -12,6 +12,18 @@ router.get("/", (req, res) => {
 const controller1 = require("../controller/conLogin");
 router.get("/login", controller1.showLogin);
 
+// isi email
+const controller12 = require("../controller/conForgot");
+router.get("/forgotPassword", controller12.showForgot);
+
+// menampilkan pemberitahuan email dikirim
+const controller13 = require("../controller/conWait");
+router.get("/wait", controller13.showWait);
+
+// menampilkan form isi password baru
+const controller14 = require("../controller/conReset");
+router.get("/reset", controller14.showReset);
+
 // dashboard
 const controller2 = require("../controller/conDashboard");
 router.get("/dashboard", authMiddleware, controller2.showDashboard);
