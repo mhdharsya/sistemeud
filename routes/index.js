@@ -15,6 +15,9 @@ const showAnalisis = require("./ruter")
 const showDetailAnalisis = require("./ruter")
 const showRiwayat = require("./ruter")
 const showDetailRiwayat = require("./ruter")
+const showForgot = require("./ruter")
+const showWait = require("./ruter")
+const showReset = require("./ruter")
 const server = {}
 
 server.showLogin = showLogin
@@ -24,5 +27,8 @@ server.showAnalisis = showAnalisis
 server.showDetailAnalisis = showDetailAnalisis
 server.showRiwayat = showRiwayat
 server.showDetailRiwayat = showDetailRiwayat
+server.showForgot = showForgot
+server.showWait = showWait
+server.showReset = showReset
 
 module.exports = server
