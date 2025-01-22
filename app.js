@@ -4,9 +4,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv');
 const createError = require('http-errors');
-const authRoutes = require('./routes/authRoutes');
 const router = require('./routes/ruter');
-const uploadMiddleware = require('./middlewares/uploadMiddleware');
+const jwt = require('jsonwebtoken');
 
 dotenv.config();
 
@@ -23,11 +22,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
 
-// Use the upload middleware
-app.use(uploadMiddleware);
-
-// Authentication routes
-app.use('/auth', authRoutes);
+// Middleware to verify JWT
+app.use((req, res, next) => {
+  const token = req.cookies.token;
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: 'Invalid token' });
+      }
+      req.user = decoded;
+      next();
+    });
+  } else {
+    next();
+  }
+});
 
 // Use the main router
 app.use('/', router);
