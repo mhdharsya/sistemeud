@@ -7,14 +7,37 @@
     <link rel="icon" href="/assets/image/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Fade-in animation */
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Hover effects for buttons */
+        .hover-button:hover {
+            background-color: #2563eb;
+            color: #fff;
+            transition: all 0.3s ease-in-out;
+        }
+        .hover-danger:hover {
+            background-color: #b91c1c;
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
     <!-- Navbar -->
-    <%- include('../include/header') %>
-
+    <div class="navbar-static">
+        <%- include('../include/header') %>
+    </div>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 pt-24">
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 pt-24 fade-in">
         <!-- Back button -->
         <div class="mb-4">
             <a href="riwayat" class="inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
@@ -125,10 +148,10 @@
 
                 <!-- Actions -->
                 <div class="mt-8 flex justify-end space-x-4">
-                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 hover-button focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Download Report
                     </button>
-                    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover-danger focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                         Delete Record
                     </button>
                 </div>
