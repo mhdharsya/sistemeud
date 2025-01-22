@@ -12,7 +12,10 @@ router.get("/", (req, res) => {
 const controller1 = require("../controller/conLogin");
 router.get("/login", controller1.showLogin);
 router.post('/login', controller1.authController.login);
-router.post('/register', controller1.authController.register);
+
+const controller16 = require("../controller/conRegis");
+router.get("/register", controller16.regcon.showRegis);
+router.post("/register", controller16.regcon.register);
 
 // isi email
 const controller12 = require("../controller/conForgot");
@@ -49,7 +52,6 @@ router.get("/riwayat", authMiddleware, controller6.showRiwayat);
 
 // detail riwayat
 const controller7 = require("../controller/conDetailRiwayat");
-const authController = require("../controller/authController");
 router.get("/detail-riwayat", authMiddleware, controller7.showDetailRiwayat);
 
 module.exports = router;

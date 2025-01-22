@@ -37,27 +37,6 @@ const authController = {
     }
   },
 
-  register: async (req, res) => {
-    const { email, username, password } = req.body;
-
-    try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      const user = await prisma.user.create({
-        data: {
-          email: email,
-          username: username,
-          password: hashedPassword,
-        },
-      });
-
-      res.status(201).json({ message: 'User registered successfully', user });
-    } catch (error) {
-      console.error('Error registering user:', error);
-      res.status(500).json({ message: 'Server error', error: error.message });
-    }
-  },
-
   logout: (req, res) => {
     req.session.destroy((err) => {
       if (err) {
@@ -76,8 +55,6 @@ const showLogin = async (req, res) => {
       res.status(500).json({ message: error });
     }
   };
-  
-  
   
   module.exports = {
     showLogin, authController
