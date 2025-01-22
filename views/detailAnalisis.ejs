@@ -7,14 +7,40 @@
     <link rel="icon" href="/assets/image/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Fade-in animation */
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Button hover effect */
+        .hover-button:hover {
+            background-color: #2563eb;
+            color: #fff;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Form field focus */
+        .focus-field:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 1px #2563eb;
+            transition: border-color 0.3s ease-in-out;
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
     <!-- Navbar -->
-    <%- include('../include/header') %>
-
+    <div class="navbar-static">
+        <%- include('../include/header') %>
+    </div>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 pt-24">
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 pt-24 fade-in">
         <!-- Back button -->
         <div class="mb-4 px-4 sm:px-0">
             <a href="analisis" class="inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
@@ -40,14 +66,14 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Nama File</label>
                             <div class="mt-1">
-                                <input type="text" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" value="malicious.exe" readonly>
+                                <input type="text" class="shadow-sm focus-field block w-full sm:text-sm border-gray-300 rounded-md" value="malicious.exe" readonly>
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">File Hash (SHA-256)</label>
                             <div class="mt-1">
-                                <input type="text" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" value="8a9d...f3e2" readonly>
+                                <input type="text" class="shadow-sm focus-field block w-full sm:text-sm border-gray-300 rounded-md" value="8a9d...f3e2" readonly>
                             </div>
                         </div>
                     </div>
@@ -59,7 +85,7 @@
                     <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Jenis Malware</label>
-                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus-field sm:text-sm rounded-md">
                                 <option>Pilih jenis...</option>
                                 <option>Virus</option>
                                 <option>Trojan</option>
@@ -71,7 +97,7 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">File Type</label>
-                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus-field sm:text-sm rounded-md">
                                 <option>Pilih type...</option>
                                 <option>.exe</option>
                                 <option>.pdf</option>
@@ -107,7 +133,7 @@
                         <div class="sm:col-span-2">
                             <label class="block text-sm font-medium text-gray-700">Detail Analisis</label>
                             <div class="mt-1">
-                                <textarea rows="4" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Masukkan detail hasil analisis..."></textarea>
+                                <textarea rows="4" class="shadow-sm focus-field block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Masukkan detail hasil analisis..."></textarea>
                             </div>
                         </div>
                     </div>
@@ -119,7 +145,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Tindakan yang Disarankan</label>
                         <div class="mt-1">
-                            <textarea rows="4" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Masukkan rekomendasi penanganan..."></textarea>
+                            <textarea rows="4" class="shadow-sm focus-field block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Masukkan rekomendasi penanganan..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -129,7 +155,7 @@
                     <button type="button" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Batal
                     </button>
-                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover-button focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Simpan Analisis
                     </button>
                 </div>
