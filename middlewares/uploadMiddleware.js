@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
 
 // File filter to accept only certain file types
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = /exe|zip|rar/;
+  const allowedTypes = /zip|rar|tar|7z/;
   const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = allowedTypes.test(file.mimetype);
 

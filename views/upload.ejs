@@ -30,8 +30,9 @@
                             <label for="malwareFile" class="font-medium text-blue-600 hover:text-blue-500 cursor-pointer">
                                 browse
                             </label>
-                            <input type="file" id="malwareFile" name="file" class="hidden">
+                            <input type="file" id="malwareFile" name="file" class="hidden" onchange="document.getElementById('fileName').textContent = this.files[0].name">
                         </p>
+                        <p id="fileName" class="mt-2 text-sm text-gray-600"></p>
                     </div>
                 </div>
                 <div>
