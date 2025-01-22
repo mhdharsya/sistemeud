@@ -1,3 +1,54 @@
+-- DropForeignKey
+ALTER TABLE `MalwareFile` DROP FOREIGN KEY `MalwareFile_user_id_fkey`;
+
+-- DropForeignKey
+ALTER TABLE `AnalysisResult` DROP FOREIGN KEY `AnalysisResult_malware_file_id_fkey`;
+
+-- DropForeignKey
+ALTER TABLE `AnalysisResult` DROP FOREIGN KEY `AnalysisResult_malware_type_id_fkey`;
+
+-- DropForeignKey
+ALTER TABLE `AnalysisResult` DROP FOREIGN KEY `AnalysisResult_analyst_id_fkey`;
+
+-- DropForeignKey
+ALTER TABLE `AnalysisCharacteristic` DROP FOREIGN KEY `AnalysisCharacteristic_analysis_id_fkey`;
+
+-- DropForeignKey
+ALTER TABLE `AnalysisCharacteristic` DROP FOREIGN KEY `AnalysisCharacteristic_characteristic_id_fkey`;
+
+-- DropForeignKey
+ALTER TABLE `AnalysisReport` DROP FOREIGN KEY `AnalysisReport_analysis_id_fkey`;
+
+-- DropForeignKey
+ALTER TABLE `Recommendation` DROP FOREIGN KEY `Recommendation_analysis_id_fkey`;
+
+-- DropTable
+DROP TABLE IF EXISTS `User`;
+
+-- DropTable
+DROP TABLE IF EXISTS `MalwareType`;
+
+-- DropTable
+DROP TABLE IF EXISTS `MalwareFile`;
+
+-- DropTable
+DROP TABLE IF EXISTS `MalwareCharacteristic`;
+
+-- DropTable
+DROP TABLE IF EXISTS `AnalysisResult`;
+
+-- DropTable
+DROP TABLE IF EXISTS `AnalysisCharacteristic`;
+
+-- DropTable
+DROP TABLE IF EXISTS `RiskLevel`;
+
+-- DropTable
+DROP TABLE IF EXISTS `AnalysisReport`;
+
+-- DropTable
+DROP TABLE IF EXISTS `Recommendation`;
+
 -- CreateTable
 CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
