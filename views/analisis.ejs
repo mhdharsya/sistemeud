@@ -55,78 +55,80 @@
         </div>
 
         <!-- Filter Section -->
-        <div class="mt-4 bg-white p-4 rounded-lg shadow mx-4 sm:mx-6 lg:mx-8 fade-in">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
-                <div>
-                    <label for="type-filter" class="block text-sm font-medium text-gray-700">Jenis Malware</label>
-                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                        <option value="">Semua</option>
-                        <option>Virus</option>
-                        <option>Worm</option>
-                        <option>Trojan</option>
-                        <option>Ransomware</option>
-                        <option>Spyware</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Tanggal Mulai</label>
-                    <input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Tanggal Akhir</label>
-                    <input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Cari</label>
-                    <input type="text" placeholder="Nama virus..." class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                </div>
-                <div>
-                    <button type="button" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover-button focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        Terapkan Filter
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Table -->
-        <div class="mt-8 flex flex-col mx-4 sm:mx-6 lg:mx-8 fade-in">
-            <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                    <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-300">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">ID</th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Nama File</th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Jenis Malware</th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Tanggal Upload</th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200 bg-white">
-                                <tr class="hover-row">
-                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">1</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">malicious.exe</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        <span class="inline-flex rounded-full bg-yellow-100 px-2 text-xs font-semibold leading-5 text-yellow-800">Trojan</span>
-                                    </td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">2024-01-10</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        <span class="inline-flex rounded-full bg-gray-100 px-2 text-xs font-semibold leading-5 text-gray-800">Pending Analysis</span>
-                                    </td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm">
-                                        <a href="detail-analisis" class="text-red-600 hover:text-blue-900">Analisis</a>
-                                    </td>
-                                </tr>
-                                <!-- More rows... -->
-                            </tbody>
-                        </table>
+        <div class="mt-4 px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-start space-y-4 lg:space-y-0 lg:space-x-4">
+                <!-- Filter Section -->
+                <div class="bg-white p-4 rounded-lg shadow w-full lg:w-2/3">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                        <div>
+                            <label for="type-filter" class="block text-sm font-medium text-gray-700">Jenis Malware</label>
+                            <select id="type-filter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                <option value="">Semua</option>
+                                <option>Virus</option>
+                                <option>Worm</option>
+                                <option>Trojan</option>
+                                <option>Ransomware</option>
+                                <option>Spyware</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="start-date" class="block text-sm font-medium text-gray-700">Tanggal Mulai</label>
+                            <input id="start-date" type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="end-date" class="block text-sm font-medium text-gray-700">Tanggal Akhir</label>
+                            <input id="end-date" type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <button type="button" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Terapkan Filter
+                            </button>
+                        </div>
                     </div>
                 </div>
+            
+                <!-- Search Section -->
+                <div class="bg-white p-4 rounded-lg shadow w-full lg:w-1/3">
+                    <label for="search-input" class="block text-sm font-medium text-gray-700">Pencarian</label>
+                    <input id="search-input" type="text" placeholder="Nama virus..." class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                </div>
             </div>
         </div>
 
+        <!-- Table Section -->
+        <div class="mt-8 px-4 sm:px-6 lg:px-8">
+            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">ID</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Nama File</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Jenis Malware</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Tanggal Upload</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white">
+                        <tr class="hover-row">
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">1</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">malicious.exe</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                <span class="inline-flex rounded-full bg-yellow-100 px-2 text-xs font-semibold leading-5 text-yellow-800">Trojan</span>
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">2024-01-10</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                <span class="inline-flex rounded-full bg-gray-100 px-2 text-xs font-semibold leading-5 text-gray-800">Pending Analysis</span>
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm">
+                                <a href="detail-analisis" class="text-blue-600 hover:text-blue-900">Analisis</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+       
         <!-- Pagination -->
         <div class="mt-4 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 mx-4 sm:mx-6 lg:mx-8 fade-in">
             <div class="flex flex-1 justify-between sm:hidden">

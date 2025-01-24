@@ -5,15 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Evidence Malware</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes slideInFromBottom {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-in-from-bottom {
+            animation: slideInFromBottom 0.8s ease-out;
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .visible {
+            opacity: 1;
+            animation: slideInFromBottom 1s ease-out;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const formContainer = document.querySelector(".relative.w-96");
+            formContainer.classList.add("hidden");
+
+            setTimeout(() => {
+                formContainer.classList.remove("hidden");
+                formContainer.classList.add("visible");
+            }, 500); // Delay for animation after page load
+        });
+    </script>
 </head>
 <body class="h-screen flex items-center justify-center" style="background-image: url('/assets/image/bg2.jpg'); background-size: cover; background-position: center;">
-    <div class="relative w-96 bg-white rounded-lg shadow-lg" style="overflow: hidden;">
+    <div class="relative w-96 bg-white rounded-lg shadow-lg hidden" style="overflow: hidden;">
         <!-- Bagian Atas dengan Latar Gambar -->
         <div class="relative text-center py-12" style="background-image: url('/assets/image/bg.jpg'); background-size: cover; background-position: center;">
-            <p class="text-sm font-medium text-white">Don't you have an account?</p>
-            <a href="register" class="bg-white bg-opacity-70 text-red-500 px-4 py-2 mt-2 inline-block rounded-full shadow-md text-sm font-medium transition duration-300 hover:bg-white">
-                Sign Up
-            </a>
+            <!-- Overlay hitam semi-transparan -->
+            <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+            <div class="relative">
+                <p class="text-sm font-medium text-white">Don't you have an account?</p>
+                <a href="register" class="bg-white bg-opacity-70 text-red-500 px-4 py-2 mt-2 inline-block rounded-full shadow-md text-sm font-medium transition duration-300 hover:bg-white">
+                    Sign Up
+                </a>
+            </div>
         </div>
         <!-- Bagian Form Login -->
         <div class="px-8 py-6" style="background: rgba(255, 255, 255, 0.8);">
