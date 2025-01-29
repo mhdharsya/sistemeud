@@ -5,7 +5,6 @@ const logger = require('morgan');
 const dotenv = require('dotenv');
 const createError = require('http-errors');
 const router = require('./routes/ruter');
-const jwt = require('jsonwebtoken');
 
 dotenv.config();
 
@@ -21,22 +20,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
-
-// Middleware to verify JWT
-app.use((req, res, next) => {
-  const token = req.cookies.token;
-  if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        return res.status(401).json({ message: 'Invalid token' });
-      }
-      req.user = decoded;
-      next();
-    });
-  } else {
-    next();
-  }
-});
 
 // Use the main router
 app.use('/', router);

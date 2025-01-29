@@ -12,6 +12,7 @@ router.get("/", (req, res) => {
 const controller1 = require("../controller/conLogin");
 router.get("/login", controller1.showLogin);
 router.post('/login', controller1.authController.login);
+router.get('/logout', controller1.authController.logout);
 
 const controller16 = require("../controller/conRegis");
 router.get("/register", controller16.regcon.showRegis);

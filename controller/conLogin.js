@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { prisma } = require('../config/database');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -21,13 +22,23 @@ const authController = {
         return res.render('login', { error: 'Invalid username or password' });
       }
 
+      // require('dotenv').config();
+      // console.log("ENV VARIABLES:", {
+      // jwt_secret: process.env.JWT_SECRET,
+      // all_env: process.env
+      // });
+
       // Generate a JWT token
       const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
         expiresIn: '1h',
       });
 
       // Set the token in a cookie
-      res.cookie('token', token, { httpOnly: true });
+      res.cookie('token', token, { 
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // gunakan HTTPS di production
+        sameSite: 'strict'
+      });
 
       // Redirect to the dashboard
       res.redirect('/dashboard');
@@ -38,12 +49,8 @@ const authController = {
   },
 
   logout: (req, res) => {
-    req.session.destroy((err) => {
-      if (err) {
-        return res.status(500).json({ message: 'Failed to log out' });
-      }
-      res.redirect('/login');
-    });
+    res.clearCookie('token'); // aClear the token cookie
+    res.redirect('/login');
   },
 };
 

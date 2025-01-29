@@ -17,10 +17,10 @@ exports.uploadMalware = async (req, res) => {
     const fileHash = crypto.createHash('sha256').update(fileBuffer).digest('hex');
 
     // Ensure user_id is available in the JWT
-    const user_id = req.user.id;
-    if (!user_id) {
+    if (!req.user || !req.user.userId) {
       return res.status(401).json({ message: 'User not authenticated' });
     }
+    const user_id = req.user.userId;
     const status = 'pending'; // Example: set initial status
 
     await Malware.create(file.originalname, fileHash, file.size, file.mimetype, user_id, status);
