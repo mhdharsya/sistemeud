@@ -50,7 +50,7 @@
                             <label for="malwareFile" class="font-medium text-red-600 hover:text-red-200 cursor-pointer">
                                 browse
                             </label>
-                            <input type="file" id="malwareFile" name="file" class="hidden" onchange="document.getElementById('fileName').textContent = this.files[0].name">
+                            <input type="file" id="malwareFile" name="file" class="hidden" onchange="document.getElementById('fileName').textContent = Array.from(this.files).map(file => file.name).join(', ')" multiple />
                         </p>
                         <p id="fileName" class="mt-2 text-sm text-gray-600"></p>
                     </div>
