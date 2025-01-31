@@ -7,6 +7,7 @@
     <link rel="icon" href="/assets/image/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 CDN -->
     <style>
         /* Fade-in animation */
         .fade-in {
@@ -29,7 +30,7 @@
 <body class="bg-gray-100">
     <!-- Navigation -->
     <div class="navbar-static">
-        <%- include('../include/header', { activePage: activePage }) %> 
+        <%- include('../include/header', { activePage: activePage }) %>
     </div>
 
     <!-- Main Content -->
@@ -39,7 +40,7 @@
             <p class="mt-1 text-sm text-gray-600">
                 Upload file yang terinfeksi malware untuk dianalisis dan didokumentasikan.
             </p>
-            <form class="space-y-6" action="/upload" method="POST" enctype="multipart/form-data">
+            <form id="uploadForm" class="space-y-6" action="/upload" method="POST" enctype="multipart/form-data">
                 <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
                     <div class="mb-4">
                         <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
@@ -85,6 +86,52 @@
             </form>
         </div>
     </div>
+
+    <!-- Footer -->
     <%- include('../include/footer') %>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();  // Mencegah form submit biasa
+
+            const formData = new FormData(this);  // Ambil data dari form
+
+            try {
+                // Kirim form ke server menggunakan fetch
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();  // Mengambil response JSON dari server
+
+                // Jika response sukses
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'File berhasil diupload!',
+                        text: result.message || 'File Anda telah berhasil di-upload dan dianalisis.',
+                        showConfirmButton: true
+                    });
+                } else {
+                    // Jika ada error di server
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan',
+                        text: result.message || 'Gagal meng-upload file.',
+                        showConfirmButton: true
+                    });
+                }
+            } catch (error) {
+                // Menangani error jika terjadi masalah saat menghubungi server
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    text: 'Tidak dapat menghubungi server. Coba lagi nanti.',
+                    showConfirmButton: true
+                });
+            }
+        });
+    </script>
 </body>
 </html>
