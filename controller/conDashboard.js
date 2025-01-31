@@ -10,7 +10,7 @@ const showDashboard = async (req, res) => {
     // Menghitung jumlah malware dengan risiko tinggi (risk_level)
     const highRiskMalware = await prisma.malwareFile.count({
       where: {
-        riskLevel: "High"  // Pastikan menggunakan nilai enum "HIGH" (huruf kapital)
+        riskLevel: "Critical"
       }
     });
 
