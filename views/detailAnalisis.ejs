@@ -65,47 +65,31 @@
                     <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Nama File</label>
-                            <div class="mt-1">
-                                <input type="text" class="shadow-sm focus-field block w-full sm:text-sm border-gray-300 rounded-md" value="malicious.exe" readonly>
-                            </div>
+                            <dd class="mt-1 text-sm text-gray-900"><%= malwareFile.name %></dd>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">File Hash (SHA-256)</label>
-                            <div class="mt-1">
-                                <input type="text" class="shadow-sm focus-field block w-full sm:text-sm border-gray-300 rounded-md" value="8a9d...f3e2" readonly>
-                            </div>
+                            <dd class="mt-1 text-sm text-gray-900"><%= malwareFile.fileHash %></dd>
                         </div>
                     </div>
-                </div>
-
-                <!-- Analysis Results Section -->
-                <div class="mb-8">
-                    <h4 class="text-md font-medium text-gray-900 mb-4">Hasil Analisis</h4>
-                    <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                    <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2 mt-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Jenis Malware</label>
-                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus-field sm:text-sm rounded-md">
-                                <option>Pilih jenis...</option>
-                                <option>Virus</option>
-                                <option>Trojan</option>
-                                <option>Ransomware</option>
-                                <option>Spyware</option>
-                                <option>Worm</option>
-                            </select>
+                            <dd class="mt-1 text-sm text-gray-900"><%= malwareFile.malwareType %></dd>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">File Type</label>
-                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus-field sm:text-sm rounded-md">
-                                <option>Pilih type...</option>
-                                <option>.exe</option>
-                                <option>.pdf</option>
-                                <option>.xlsx</option>
-                                <option>.apk</option>
-                            </select>
+                            <dd class="mt-1 text-sm text-gray-900"><%= malwareFile.fileType %></dd>
                         </div>
-
+                    </div>
+                </div>
+                
+                <!-- Analysis Results Section -->
+                <div class="mb-8">
+                    <h4 class="text-md font-medium text-gray-900 mb-4">Hasil Analisis</h4>
+                    <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                         <div class="sm:col-span-2">
                             <label class="block text-sm font-medium text-gray-700">Karakteristik Malware</label>
                             <div class="mt-1">

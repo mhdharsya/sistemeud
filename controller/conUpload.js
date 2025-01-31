@@ -20,7 +20,7 @@ exports.uploadMalware = async (req, res) => {
       return res.status(400).json({ message: 'Invalid malware type' });
     }
 
-    if (!riskLevel || !['Low', 'Medium', 'High'].includes(riskLevel)) {
+    if (!riskLevel || !['Low', 'Medium', 'High', 'Critical'].includes(riskLevel)) {
       return res.status(400).json({ message: 'Invalid risk level' });
     }
 
