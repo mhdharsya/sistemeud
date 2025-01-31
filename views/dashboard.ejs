@@ -172,31 +172,42 @@
 
     <!-- Charts Initialization -->
     <script>
+        // Fungsi untuk mengambil data dashboard dari backend
+        async function fetchDashboardData() {
+        const response = await fetch('/chart');  // Mengambil data dari backend
+        const data = await response.json();
+        return data;
+        }
+
+        // Fungsi untuk mengupdate chart dengan data yang diambil dari server
+        async function updateCharts() {
+        const data = await fetchDashboardData();
+
         // Malware Types Distribution Chart
         const typeCtx = document.getElementById('malwareTypeChart').getContext('2d');
         new Chart(typeCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Trojan', 'Virus', 'Ransomware', 'Spyware', 'Worm'],
-                datasets: [{
-                    data: [45, 25, 20, 15, 10],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.8)',
-                        'rgba(54, 162, 235, 0.8)',
-                        'rgba(255, 206, 86, 0.8)',
-                        'rgba(75, 192, 192, 0.8)',
-                        'rgba(153, 102, 255, 0.8)'
-                    ]
-                }]
+            labels: data.malwareTypes.map(item => item.type),
+            datasets: [{
+                data: data.malwareTypes.map(item => item.count),
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 206, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(153, 102, 255, 0.8)',
+                ]
+            }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                position: 'bottom'
                 }
+            }
             }
         });
 
@@ -205,27 +216,27 @@
         new Chart(trendCtx, {
             type: 'line',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Detected Malware',
-                    data: [15, 25, 20, 30, 28, 23],
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }]
+            labels: data.monthlyTrend.map(item => item.month),
+            datasets: [{
+                label: 'Detected Malware',
+                data: data.monthlyTrend.map(item => item.count),
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                position: 'bottom'
                 }
+            },
+            scales: {
+                y: {
+                beginAtZero: true
+                }
+            }
             }
         });
 
@@ -234,37 +245,42 @@
         new Chart(threatCtx, {
             type: 'bar',
             data: {
-                labels: ['Virus.Win32.Nimnul.a', 'UDS.DangerousObject.Multi.Generic', 'Trojan-Dropper.VBS.Agent.bp', 'HEUR.Trojan.Win32.Generic', 'Net-Worm.Win32.Nimda'],
-                datasets: [{
-                    label: 'Sum of Threats Detected',
-                    data: [3000, 2800, 1500, 1200, 800],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.8)',
-                        'rgba(54, 162, 235, 0.8)',
-                        'rgba(255, 206, 86, 0.8)',
-                        'rgba(75, 192, 192, 0.8)',
-                        'rgba(153, 102, 255, 0.8)'
-                    ]
-                }]
+            labels: data.threatOverview.map(item => item.threat),
+            datasets: [{
+                label: 'Sum of Threats Detected',
+                data: data.threatOverview.map(item => item.count),
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 206, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(153, 102, 255, 0.8)',
+                ]
+            }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                position: 'bottom'
+                }
+            },
+            scales: {
+                x: {
+                beginAtZero: true
                 },
-                scales: {
-                    x: {
-                        beginAtZero: true
-                    },
-                    y: {
-                        beginAtZero: true
-                    }
+                y: {
+                beginAtZero: true
                 }
             }
+            }
         });
+        }
+
+        // Memanggil fungsi untuk mengupdate chart setelah halaman dimuat
+        window.onload = updateCharts;
+
     </script>
     <%- include('../include/footer') %>
     <script src="/stylesheets/animasiHalaman.js" defer></script>

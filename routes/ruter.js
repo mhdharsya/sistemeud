@@ -8,6 +8,10 @@ router.get("/", (req, res) => {
   res.redirect("/login");
 });
 
+// chart
+const { getDashboardData } = require("../controller/conChart");
+router.get("/chart", authMiddleware, getDashboardData);
+
 // login
 const controller1 = require("../controller/conLogin");
 router.get("/login", controller1.showLogin);
