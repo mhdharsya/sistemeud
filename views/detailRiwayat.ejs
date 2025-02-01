@@ -64,33 +64,43 @@
                         <dl class="grid grid-cols-1 gap-4">
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">Nama File</dt>
-                                <dd class="mt-1 text-sm text-gray-900">malicious.exe</dd>
+                                <dd class="mt-1 text-sm text-gray-900"><%= malwareFile.name %></dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">Jenis Malware</dt>
                                 <dd class="mt-1">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                        Trojan
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                        <%= malwareFile.malwareType === 'Trojan' ? 'bg-yellow-100 text-yellow-800' : '' %> 
+                                        <%= malwareFile.malwareType === 'Virus' ? 'bg-red-100 text-red-800' : '' %> 
+                                        <%= malwareFile.malwareType === 'Ransomware' ? 'bg-blue-100 text-blue-800' : '' %> 
+                                        <%= malwareFile.malwareType === 'Spyware' ? 'bg-green-100 text-green-800' : '' %> 
+                                        <%= malwareFile.malwareType === 'Worm' ? 'bg-purple-100 text-purple-800' : '' %>">
+                                        <%= malwareFile.malwareType %>
                                     </span>
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">Risk Level</dt>
                                 <dd class="mt-1">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                        High
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                        <%= malwareFile.riskLevel === 'High' ? 'bg-red-100 text-red-800' : '' %> 
+                                        <%= malwareFile.riskLevel === 'Medium' ? 'bg-yellow-100 text-yellow-800' : '' %> 
+                                        <%= malwareFile.riskLevel === 'Low' ? 'bg-green-100 text-green-800' : '' %> 
+                                        <%= malwareFile.riskLevel === 'Critical' ? 'bg-purple-100 text-purple-800' : '' %>">
+                                        <%= malwareFile.riskLevel %>
                                     </span>
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">Tanggal Upload</dt>
-                                <dd class="mt-1 text-sm text-gray-900">2024-01-10 14:30:00</dd>
+                                <dd class="mt-1 text-sm text-gray-900"><%= new Date(malwareFile.uploadDate).toLocaleString() %></dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">Status</dt>
                                 <dd class="mt-1">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        Analyzed
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                        <%= malwareFile.status === 'Analyzed' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+                                        <%= malwareFile.status %>
                                     </span>
                                 </dd>
                             </div>
@@ -103,23 +113,27 @@
                         <dl class="grid grid-cols-1 gap-4">
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">File Hash (SHA-256)</dt>
-                                <dd class="mt-1 text-sm text-gray-900 break-all">8a9d...f3e2</dd>
+                                <dd class="mt-1 text-sm text-gray-900 break-all"><%= malwareFile.fileHash %></dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">File Size</dt>
-                                <dd class="mt-1 text-sm text-gray-900">2.4 MB</dd>
+                                <dd class="mt-1 text-sm text-gray-900 file-size-display"></dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">File Type</dt>
-                                <dd class="mt-1 text-sm text-gray-900">Windows Executable (.exe)</dd>
+                                <dd class="mt-1 text-sm text-gray-900"><%= malwareFile.fileType %></dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">Detected Behaviors</dt>
                                 <dd class="mt-1 text-sm text-gray-900">
                                     <ul class="list-disc pl-5 space-y-1">
-                                        <li>Registry Modification</li>
-                                        <li>Network Communication</li>
-                                        <li>Process Injection</li>
+                                        <% if (analysis && analysis.detectedBehaviors) { %>
+                                            <% analysis.detectedBehaviors.split(',').forEach(behavior => { %>
+                                                <li><%= behavior.trim() %></li>
+                                            <% }) %>
+                                        <% } else { %>
+                                            <li>No behaviors detected.</li>
+                                        <% } %>
                                     </ul>
                                 </dd>
                             </div>
@@ -132,16 +146,17 @@
                     <h3 class="text-lg font-medium text-gray-900 mb-4">Hasil Analisis</h3>
                     <div class="bg-gray-50 rounded-lg p-4">
                         <p class="text-sm text-gray-700">
-                            Malware ini teridentifikasi sebagai Trojan dengan tingkat risiko tinggi. Beberapa karakteristik berbahaya yang terdeteksi termasuk kemampuan untuk memodifikasi registry Windows, melakukan komunikasi dengan server command & control, dan menginjeksi kode berbahaya ke proses lain.
+                            <%= analysis ? analysis.analysisDetails : 'No analysis available' %>
                         </p>
                         <div class="mt-4">
                             <h4 class="text-sm font-medium text-gray-900">Rekomendasi:</h4>
-                            <ul class="mt-2 list-disc pl-5 text-sm text-gray-700 space-y-1">
-                                <li>Isolasi sistem yang terinfeksi</li>
-                                <li>Update antivirus dan sistem operasi</li>
-                                <li>Scan menyeluruh pada sistem</li>
-                                <li>Monitor aktivitas jaringan yang mencurigakan</li>
-                            </ul>
+                            <p class="mt-2 list-disc pl-5 text-sm text-gray-700 space-y-1">
+                                <% if (analysis && analysis.recommendations) { %>
+                                    <%= analysis.recommendations.split(',').join('<br>') %>
+                                <% } else { %>
+                                    No recommendations available.
+                                <% } %>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -160,4 +175,23 @@
     </div>
     <%- include('../include/footer') %>
 </body>
+<script>
+    function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = 2; // angka desimal yang digunakan
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+// Misalkan Anda mendapatkan file size dalam byte, contohnya:
+let fileSizeInBytes = ('<%= malwareFile.fileSize %>');
+let formattedSize = formatFileSize(fileSizeInBytes);
+
+// Menampilkan ukuran file yang sudah diformat
+document.querySelector(".file-size-display").innerText = formattedSize;
+
+</script>
 </html>
