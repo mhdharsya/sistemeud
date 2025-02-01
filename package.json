@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "migrate": "prisma migrate dev"
+    "migrate": "prisma migrate dev",
+    "seed": "node prisma/seeder/userSeed.js"
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",
