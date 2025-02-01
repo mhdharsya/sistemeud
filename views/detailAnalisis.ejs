@@ -58,7 +58,8 @@
                 <p class="mt-1 text-sm text-gray-500">Masukkan detail hasil analisis malware yang telah dilakukan</p>
             </div>
 
-            <form class="px-4 py-5 sm:p-6">
+            <form action="/detail-analisis?id=<%= malwareFile.id %>" method="POST" class="px-4 py-5 sm:p-6">
+                <input type="hidden" name="fileId" value="<%= malwareFile.id %>" />
                 <!-- File Info Section -->
                 <div class="mb-8">
                     <h4 class="text-md font-medium text-gray-900 mb-4">Informasi File</h4>
@@ -95,19 +96,19 @@
                             <div class="mt-1">
                                 <div class="flex flex-wrap gap-2">
                                     <label class="inline-flex items-center">
-                                        <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                        <input type="checkbox" name="behaviors" value="Registry Modification" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                         <span class="ml-2 text-sm text-gray-600">Registry Modification</span>
                                     </label>
                                     <label class="inline-flex items-center">
-                                        <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                        <input type="checkbox" name="behaviors" value="Network Communication" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                         <span class="ml-2 text-sm text-gray-600">Network Communication</span>
                                     </label>
                                     <label class="inline-flex items-center">
-                                        <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                        <input type="checkbox" name="behaviors" value="Process Injection" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                         <span class="ml-2 text-sm text-gray-600">Process Injection</span>
                                     </label>
                                     <label class="inline-flex items-center">
-                                        <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                        <input type="checkbox" name="behaviors" value="File System Changes" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                         <span class="ml-2 text-sm text-gray-600">File System Changes</span>
                                     </label>
                                 </div>
@@ -117,7 +118,7 @@
                         <div class="sm:col-span-2">
                             <label class="block text-sm font-medium text-gray-700">Detail Analisis</label>
                             <div class="mt-1">
-                                <textarea rows="4" class="shadow-sm focus-field block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Masukkan detail hasil analisis..."></textarea>
+                                <textarea name="analysis_detail" rows="4" class="shadow-sm focus-field block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Masukkan detail hasil analisis..."></textarea>
                             </div>
                         </div>
                     </div>
@@ -129,7 +130,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Tindakan yang Disarankan</label>
                         <div class="mt-1">
-                            <textarea rows="4" class="shadow-sm focus-field block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Masukkan rekomendasi penanganan..."></textarea>
+                            <textarea name="recommendations" rows="4" class="shadow-sm focus-field block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Masukkan rekomendasi penanganan..."></textarea>
                         </div>
                     </div>
                 </div>

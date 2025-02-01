@@ -50,6 +50,8 @@ router.get("/analisis", authMiddleware, controller4.showAnalisis);
 // detail analisis
 const controller5 = require("../controller/conDetailAnalisis");
 router.get("/detail-analisis", authMiddleware, controller5.showDetailAnalisis);
+router.put("/detail-analisis/:id", authMiddleware, controller5.updateAnalysisResult);
+router.post("/detail-analisis", authMiddleware, controller5.createAnalysisResult);
 
 // riwayat
 const controller6 = require("../controller/conRiwayat");

@@ -31,6 +31,76 @@ const showDetailAnalisis = async (req, res) => {
     }
 };
 
+const updateAnalysisResult = async (req, res) => {
+    const { analysisDetails, detectedBehaviors, recommendations, resultStatus } = req.body;
+    const fileId = parseInt(req.params.id);
+
+    try {
+        const updatedAnalysis = await prisma.analysisResult.update({
+            where: { malwareFileId: fileId },
+            data: {
+                analysisDetails,
+                detectedBehaviors,
+                recommendations,
+                resultStatus,
+            },
+        });
+
+        res.json(updatedAnalysis);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Membuat hasil analisis baru untuk file malware (jika belum ada analisis)
+const createAnalysisResult = async (req, res) => {
+    try {
+        const fileId = parseInt(req.query.id, 10); // Ambil ID dari query string
+        if (isNaN(fileId)) {
+            return res.status(400).json({ message: 'ID file tidak valid' });
+        }
+
+        // Ambil data dari body request
+        let { behaviors, analysis_detail, recommendations } = req.body;
+
+        // Log untuk melihat data yang diterima di backend
+        // console.log('Request Body:', req.body);
+        // console.log('Detected Behaviors:', req.body.behaviors);
+
+        // Cek apakah detectedBehaviors adalah array
+        behaviors = Array.isArray(behaviors) ? behaviors : [];
+
+        // Periksa apakah file dengan ID tersebut ada
+        const malwareFile = await prisma.malwareFile.findUnique({
+            where: { id: fileId },
+        });
+
+        if (!malwareFile) {
+            return res.status(404).json({ message: 'File tidak ditemukan' });
+        }
+
+        // Simpan hasil analisis
+        const analysis = await prisma.analysisResult.create({
+            data: {
+                malwareFileId: fileId,
+                analysisDetails: analysis_detail,
+                detectedBehaviors: behaviors.join(', '), // Gabungkan array menjadi string
+                recommendations: recommendations,
+                resultStatus: 'Analyzed',
+            },
+        });
+
+        res.redirect('/analisis');
+
+    } catch (error) {
+        console.error("Error during analysis creation:", error);
+        res.status(500).json({ message: 'Terjadi kesalahan saat memproses data', error: error.message });
+    }
+};
+
 module.exports = {
     showDetailAnalisis,
+    updateAnalysisResult,
+    createAnalysisResult,
 };
