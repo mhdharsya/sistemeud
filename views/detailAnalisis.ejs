@@ -7,6 +7,8 @@
     <link rel="icon" href="/assets/image/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         /* Fade-in animation */
         .fade-in {
@@ -40,7 +42,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 pt-24 fade-in">
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 pt-24 fade-in" id="mainContent">
         <!-- Back button -->
         <div class="mb-4 px-4 sm:px-0">
             <a href="analisis" class="inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
@@ -58,8 +60,9 @@
                 <p class="mt-1 text-sm text-gray-500">Masukkan detail hasil analisis malware yang telah dilakukan</p>
             </div>
 
-            <form action="/detail-analisis?id=<%= malwareFile.id %>" method="POST" class="px-4 py-5 sm:p-6">
+            <form id="analysisForm" action="/detail-analisis?id=<%= malwareFile.id %>" method="POST" class="px-4 py-5 sm:p-6">
                 <input type="hidden" name="fileId" value="<%= malwareFile.id %>" />
+
                 <!-- File Info Section -->
                 <div class="mb-8">
                     <h4 class="text-md font-medium text-gray-900 mb-4">Informasi File</h4>
@@ -137,16 +140,83 @@
 
                 <!-- Form Actions -->
                 <div class="flex justify-end space-x-3">
-                    <button type="button" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <button type="button" 
+                            id="cancelButton"
+                            class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Batal
                     </button>
-                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover-button focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+
+                    <button type="submit" 
+                            id="submitButton"
+                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover-button focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Simpan Analisis
                     </button>
                 </div>
             </form>
         </div>
     </div>
+
     <%- include('../include/footer') %>
+
+    <script>
+        const analysisForm = document.getElementById('analysisForm');
+        const cancelButton = document.getElementById('cancelButton');
+        const mainContent = document.getElementById('mainContent'); // Konten utama halaman
+
+        // Handler untuk tombol "Simpan Analisis"
+        analysisForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah form langsung submit
+
+            // Menonaktifkan animasi fade-in saat SweetAlert muncul
+            mainContent.classList.remove('fade-in');
+
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menyimpan analisis ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Simpan!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Simulasikan pengiriman form
+                    setTimeout(() => {
+                        // Menampilkan notifikasi sukses setelah delay
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: 'Analisis berhasil disimpan.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            // Setelah SweetAlert selesai, aktifkan kembali animasi fade-in
+                            mainContent.classList.add('fade-in');
+                            analysisForm.submit(); // Lanjutkan submit form jika berhasil
+                        });
+                    }, 1000); // Simulasi delay
+                } else {
+                    // Jika dibatalkan, aktifkan kembali animasi fade-in
+                    mainContent.classList.add('fade-in');
+                }
+            });
+        });
+
+        // Handler untuk tombol "Batal"
+        cancelButton.addEventListener('click', function() {
+            Swal.fire({
+                title: 'Batalkan',
+                text: 'Apakah Anda yakin ingin membatalkan?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, batalkan',
+                cancelButtonText: 'Kembali',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'analisis'; // Arahkan ke halaman analisis
+                }
+            });
+        });
+    </script>
 </body>
 </html>
