@@ -1,6 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const { getDashboardData } = require("../controller/conChart");
 
 const showDashboard = async (req, res) => {
   try {
