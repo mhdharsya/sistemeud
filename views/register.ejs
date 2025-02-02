@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body class="bg-gray-100 h-screen flex items-center justify-center" style="background-image: url('/assets/image/bg2.jpg'); background-size: cover; background-position:center;">
-    <div class="bg-white p-8 rounded-lg shadow-md w-96" style="background-color: rgba(255, 255, 255, 0.463); box-shadow: 0 0 40px rgba(7, 7, 7, 0.452); backdrop-filter: blur(2px);">
+    <div class="bg-white p-8 rounded-lg shadow-md w-[500px] h-auto" style="background-color: rgba(255, 255, 255, 0.463); box-shadow: 0 0 40px rgba(7, 7, 7, 0.452); backdrop-filter: blur(1.5px);">
         <div class="flex justify-center mb-6">
             <img src="/assets/image/logo.png" alt="Logo" class="w-24 h-24">
         </div>
@@ -18,38 +18,48 @@
             </div>
         <% } %>
         <form class="space-y-6" action="/register" method="POST">
-            <div>
-                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                <input type="text" id="username" name="username" required 
-                    style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    onmouseover="this.style.background='#434343'" 
-                    onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
+            <!-- Use Grid Layout with 2 Columns -->
+            <div class="grid grid-cols-2 gap-6">
+                <!-- Left Column (Username and Email) -->
+                <div>
+                    <label for="username" class="block text-sm font-medium text-black">Username</label>
+                    <input type="text" id="username" name="username" required 
+                        style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        onmouseover="this.style.background='#434343'" 
+                        onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-black">Email</label>
+                    <input type="email" id="email" name="email" required 
+                        style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        onmouseover="this.style.background='#434343'" 
+                        onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
+                </div>
+
+                <!-- Right Column (Password and Confirm Password) -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-black">Password</label>
+                    <input type="password" id="password" name="password" required 
+                        style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        onmouseover="this.style.background='#434343'" 
+                        onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
+                </div>
+
+                <div>
+                    <label for="confirmPassword" class="block text-sm font-medium text-black">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required 
+                        style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        onmouseover="this.style.background='#434343'" 
+                        onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
+                </div>
             </div>
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email" name="email" required 
-                    style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    onmouseover="this.style.background='#434343'" 
-                    onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
-            </div>
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" id="password" name="password" required 
-                    style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    onmouseover="this.style.background='#434343'" 
-                    onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
-            </div>
-            <div>
-                <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" required 
-                    style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    onmouseover="this.style.background='#434343'" 
-                    onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
-            </div>
+
+            <!-- Submit Button -->
             <div>
                 <button type="submit" 
                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300">
