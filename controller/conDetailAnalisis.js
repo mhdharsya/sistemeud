@@ -61,17 +61,11 @@ const createAnalysisResult = async (req, res) => {
             return res.status(400).json({ message: 'ID file tidak valid' });
         }
 
-        // Ambil data dari body request
         let { behaviors, analysis_detail, recommendations } = req.body;
-
-        // Log untuk melihat data yang diterima di backend
-        // console.log('Request Body:', req.body);
-        // console.log('Detected Behaviors:', req.body.behaviors);
 
         // Cek apakah detectedBehaviors adalah array
         behaviors = Array.isArray(behaviors) ? behaviors : [];
 
-        // Periksa apakah file dengan ID tersebut ada
         const malwareFile = await prisma.malwareFile.findUnique({
             where: { id: fileId },
         });
@@ -87,8 +81,14 @@ const createAnalysisResult = async (req, res) => {
                 analysisDetails: analysis_detail,
                 detectedBehaviors: behaviors.join(', '), // Gabungkan array menjadi string
                 recommendations: recommendations,
-                resultStatus: 'Analyzed',
+                resultStatus: 'Analyzed', // Status hasil analisis
             },
+        });
+
+        // Update status malware file menjadi 'Analyzed'
+        await prisma.malwareFile.update({
+            where: { id: fileId },
+            data: { status: 'Analyzed' },
         });
 
         res.redirect('/analisis');

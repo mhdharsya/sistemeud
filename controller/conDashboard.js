@@ -33,9 +33,12 @@ const showDashboard = async (req, res) => {
     // Ambil data analisis terbaru (misalnya 5 analisis terakhir) dari model AnalysisResult
     const recentAnalyses = await prisma.analysisResult.findMany({
       orderBy: {
-        analysisDate: 'desc' // Mengurutkan berdasarkan tanggal analisis
+        analysisDate: 'desc' // Mengurutkan berdasarkan tanggal analisis terbaru
       },
-      take: 5
+      take: 5,
+      include: {
+        malwareFile: true, // Menyertakan data dari malwareFile
+      },
     });
 
     // Kirim data ke tampilan

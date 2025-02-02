@@ -110,31 +110,31 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                <% if (recentAnalyses === 'Tidak ada data') { %>
+                                <% if (recentAnalyses.length === 0) { %> <!-- Jika tidak ada data analisis -->
+                                  <tr>
+                                    <td colspan="6" class="text-center text-gray-500">Tidak ada data</td>
+                                  </tr>
+                                <% } else { %> <!-- Jika ada data analisis -->
+                                  <% recentAnalyses.forEach(analysis => { %>
                                     <tr>
-                                        <td colspan="6" class="text-center text-gray-500">Tidak ada data</td>
+                                      <td class="px-6 py-4 whitespace-nowrap text-sm text-tone-dark"><%= analysis.malwareFile.name %></td> <!-- Mengakses fileName dari malwareFile -->
+                                      <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800"><%= analysis.malwareFile.malwareType %></span> <!-- Mengakses malwareType -->
+                                      </td>
+                                      <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800"><%= analysis.malwareFile.riskLevel %></span> <!-- Mengakses riskLevel -->
+                                      </td>
+                                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= new Date(analysis.analysisDate).toLocaleDateString() %></td> <!-- Mengakses analysisDate -->
+                                      <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"><%= analysis.resultStatus %></span> <!-- Mengakses status -->
+                                      </td>
+                                      <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <a href="/detail-riwayat?id=<%= analysis.malwareFile.id %>" class="hover-button text-blue-600">View Details</a>
+                                      </td>
                                     </tr>
-                                <% } else { %>
-                                    <% recentAnalyses.forEach(analysis => { %>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-tone-dark"><%= analysis.fileName %></td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800"><%= analysis.malwareType %></span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800"><%= analysis.riskLevel %></span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= new Date(analysis.analysisDate).toLocaleDateString() %></td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"><%= analysis.status %></span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                                <a href="#" class="hover-button text-blue-600">View Details</a>
-                                            </td>
-                                        </tr>
-                                    <% }) %>
+                                  <% }) %>
                                 <% } %>
-                            </tbody>
+                              </tbody>
                         </table>
                     </div>
                 </div>
