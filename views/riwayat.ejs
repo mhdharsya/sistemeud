@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Fade-in animation */
         .fade-in {
@@ -209,24 +210,55 @@
     <%- include('../include/footer') %>
 
     <script>
-        async function deleteRecord(id) {
-            try {
-              const response = await fetch(`/detail-riwayat/${id}`, {
+       async function deleteRecord(id) {
+    // Menampilkan konfirmasi SweetAlert
+    const result = await Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "Riwayat ini akan dihapus permanen!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal'
+    });
+
+    // Jika pengguna mengklik "Hapus"
+    if (result.isConfirmed) {
+        try {
+            const response = await fetch(`/detail-riwayat/${id}`, {
                 method: 'DELETE'
-              });
-              if (response.ok) {
-                alert('Record deleted successfully');
-                // Redirect ke halaman riwayat atau halaman lain sesuai kebutuhan
-                window.location.href = '/riwayat';
-              } else {
+            });
+
+            // Jika penghapusan berhasil
+            if (response.ok) {
+                Swal.fire(
+                    'Dihapus!',
+                    'Riwayat telah dihapus.',
+                    'success'
+                ).then(() => {
+                    // Redirect ke halaman riwayat atau halaman lain setelah penghapusan
+                    window.location.href = '/riwayat';
+                });
+            } else {
                 const data = await response.json();
-                alert('Error: ' + data.message);
-              }
-            } catch (error) {
-              console.error("Error deleting record:", error);
-              alert('Terjadi kesalahan saat menghapus record.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal Menghapus',
+                    text: data.message || 'Terjadi kesalahan saat menghapus riwayat.',
+                });
             }
+        } catch (error) {
+            console.error("Error deleting record:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Terjadi Kesalahan',
+                text: 'Terjadi kesalahan saat menghapus riwayat.',
+            });
         }
+    }
+}
+
     </script>
 
     <script>
