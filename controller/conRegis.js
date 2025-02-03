@@ -4,18 +4,20 @@ const bcrypt = require('bcrypt');
 const regcon = { 
   showRegis: async (req, res) => {
     try {
-      res.render("register", { activePage: "register"});
+      res.render("register", { activePage: "register" });
     } catch (error) {
       console.log("error", error);
-      res.status(500).json({ message: error });
+      res.status(500).json({ success: false, message: error.message });
     }
   },
   register: async (req, res) => {
     const { email, username, password } = req.body;
 
     try {
+      // Hash password before storing
       const hashedPassword = await bcrypt.hash(password, 10);
 
+      // Create new user
       const user = await prisma.user.create({
         data: {
           email: email,
@@ -24,11 +26,15 @@ const regcon = {
         },
       });
 
-      res.render("login", { message: 'User registered successfully' });
+      // Send a JSON response indicating success
+      res.json({ success: true, message: 'User registered successfully' });
     } catch (error) {
       console.error('Error registering user:', error);
-      res.render("register", { message: 'Server error', error: error.message });
+
+      // Send a JSON response with error details
+      res.json({ success: false, message: 'Server error', error: error.message });
     }
-  }};
-  
-  module.exports = { regcon };
+  }
+};
+
+module.exports = { regcon };
