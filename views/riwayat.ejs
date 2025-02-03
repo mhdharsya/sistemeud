@@ -6,7 +6,8 @@
     <title>Riwayat Malware - Sistem Evidence Malware</title>
     <link rel="icon" href="/assets/image/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="/stylesheets/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>  
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script> 
     <style>
         /* Fade-in animation */
         .fade-in {
@@ -52,7 +53,7 @@
                     <p class="mt-2 text-sm text-gray-700">Daftar semua malware yang telah diupload ke sistem.</p>
                 </div>
                 <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                    <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover-button focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto">
+                    <button type="button" onclick="exportToExcel()" class="inline-flex items-center justify-center rounded-md border border-transparent bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover-button focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto">
                         Export Data
                     </button>
                 </div>
@@ -103,7 +104,7 @@
         <!-- Table Section -->
         <div class="mt-8 px-4 sm:px-6 lg:px-8">
             <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                <table class="min-w-full divide-y divide-gray-300">
+                <table id="historyTable" class="min-w-full divide-y divide-gray-300">
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</th>
@@ -147,7 +148,7 @@
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <div class="flex space-x-4">
                                     <a href="/detail-riwayat?id=<%= malware.id %>" class="text-blue-600 hover:text-blue-900">View</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+                                    <button type="button" onclick="deleteRecord('<%= malware.id %>')" class="text-red-600 hover:text-red-900">Delete</a>
                                 </div>
                             </td>
                         </tr>
@@ -206,5 +207,50 @@
 </div>
     </div>
     <%- include('../include/footer') %>
+
+    <script>
+        async function deleteRecord(id) {
+            try {
+              const response = await fetch(`/detail-riwayat/${id}`, {
+                method: 'DELETE'
+              });
+              if (response.ok) {
+                alert('Record deleted successfully');
+                // Redirect ke halaman riwayat atau halaman lain sesuai kebutuhan
+                window.location.href = '/riwayat';
+              } else {
+                const data = await response.json();
+                alert('Error: ' + data.message);
+              }
+            } catch (error) {
+              console.error("Error deleting record:", error);
+              alert('Terjadi kesalahan saat menghapus record.');
+            }
+        }
+    </script>
+
+    <script>
+        function exportToExcel() {
+          // Ambil tabel asli menggunakan id "historyTable"
+          var originalTable = document.getElementById("historyTable");
+          
+          // Clone tabel agar tidak mempengaruhi tampilan asli
+          var cloneTable = originalTable.cloneNode(true);
+          
+          // Hapus kolom Action dari setiap baris (asumsi kolom Action adalah kolom terakhir)
+          var rows = cloneTable.getElementsByTagName("tr");
+          for (var i = 0; i < rows.length; i++) {
+            if (rows[i].lastElementChild) {
+              rows[i].removeChild(rows[i].lastElementChild);
+            }
+          }
+          
+          // Konversi clone tabel menjadi workbook dengan SheetJS
+          var workbook = XLSX.utils.table_to_book(cloneTable, { sheet: "Riwayat" });
+          
+          // Simpan dan download file Excel dengan nama "data_riwayat.xlsx"
+          XLSX.writeFile(workbook, "data_riwayat.xlsx");
+        }
+      </script>
 </body>
 </html>

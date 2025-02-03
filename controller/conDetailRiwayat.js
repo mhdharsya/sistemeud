@@ -36,6 +36,30 @@ const showDetailRiwayat = async (req, res) => {
   }
 };
 
+const deleteMalwareFile = async (req, res) => {
+  try {
+    const fileId = parseInt(req.params.id);
+    if (isNaN(fileId)) {
+      return res.status(400).json({ message: 'ID tidak valid' });
+    }
+
+    // Hapus record terkait terlebih dahulu (misalnya, di tabel Analysis)
+    await prisma.analysisResult.deleteMany({
+      where: { malwareFileId: fileId },
+    });
+
+    // Setelah record terkait dihapus, hapus record di MalwareFile
+    await prisma.malwareFile.delete({
+      where: { id: fileId },
+    });
+
+    res.redirect(303, '/riwayat'); // redirect ke halaman riwayat atau kirim response sukses
+  } catch (error) {
+    console.error("Error deleting malware file:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
-  showDetailRiwayat
+  showDetailRiwayat, deleteMalwareFile
 };

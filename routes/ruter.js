@@ -60,5 +60,6 @@ router.get("/riwayat", authMiddleware, controller6.showRiwayat);
 // detail riwayat
 const controller7 = require("../controller/conDetailRiwayat");
 router.get("/detail-riwayat", authMiddleware, controller7.showDetailRiwayat);
+router.delete("/detail-riwayat/:id", authMiddleware, controller7.deleteMalwareFile);
 
 module.exports = router;

@@ -49,7 +49,7 @@ const authController = {
   },
 
   logout: (req, res) => {
-    res.clearCookie('token'); // aClear the token cookie
+    res.clearCookie('token');
     res.redirect('/login');
   },
 };
