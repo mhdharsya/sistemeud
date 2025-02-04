@@ -5,100 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Sistem Evidence Malware</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        body {
-            overflow: hidden; /* Menghindari scroll saat alert muncul */
+        @keyframes slideInFromBottom {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
-        .bg-white {
-            position: absolute; /* Form berada di posisi absolute */
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 40px rgba(7, 7, 7, 0.452);
-            backdrop-filter: blur(1.5px);
+        .slide-in-from-bottom {
+            animation: slideInFromBottom 0.8s ease-out;
         }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .visible {
+            opacity: 1;
+            animation: slideInFromBottom 1s ease-out;
+        }
+
+        @keyframes glowing {
+    0% {
+      text-shadow: 
+        0 0 3px rgba(255, 0, 0, 0.3), 
+        0 0 6px rgba(255, 0, 0, 0.2);
+    }
+    50% {
+      text-shadow: 
+        0 0 5px rgba(255, 0, 0, 0.4), 
+        0 0 8px rgba(255, 0, 0, 0.3);
+    }
+    100% {
+      text-shadow: 
+        0 0 3px rgba(255, 0, 0, 0.3), 
+        0 0 6px rgba(255, 0, 0, 0.2);
+    }
+  }
+
+  .glowing-text {
+    animation: glowing 2s ease-in-out infinite alternate;
+  }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const formContainer = document.querySelector(".relative.w-96");
+            formContainer.classList.add("hidden");
+
+            setTimeout(() => {
+                formContainer.classList.remove("hidden");
+                formContainer.classList.add("visible");
+            }, 500);
+        });
+    </script>
 </head>
-<body class="bg-gray-100 h-screen flex items-center justify-center" style="background-image: url('/assets/image/bg2.jpg'); background-size: cover; background-position:center;">
-    <div class="bg-white p-8 rounded-lg shadow-md w-[500px] h-auto" style="background-color: rgba(255, 255, 255, 0.463); box-shadow: 0 0 40px rgba(7, 7, 7, 0.452); backdrop-filter: blur(1.5px);">
-        <div class="flex justify-center mb-6">
-            <img src="/assets/image/logo.png" alt="Logo" class="w-24 h-24">
+<body class="min-h-screen flex items-center justify-center" style="background-image: url('/assets/image/bg2.jpg'); background-size: cover; background-position: center;">
+    <div class="relative w-96 bg-white rounded-lg shadow-lg hidden" style="overflow: hidden;">
+        <div class="relative text-center py-12" style="background-image: url('/assets/image/bg.jpg'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+            <div class="relative">
+                <p class="text-sm font-medium text-white">Already have an account?</p>
+                <a href="login" class="bg-white bg-opacity-70 text-red-500 px-4 py-2 mt-2 inline-block rounded-full shadow-md text-sm font-medium transition duration-300 hover:bg-white">
+                    Log In
+                </a>
+            </div>
         </div>
-        <% if (typeof error !== 'undefined') { %>
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                <span class="block sm:inline"><%= error %></span>
-            </div>
-        <% } %>
-        <form id="registerForm" class="space-y-6" action="/register" method="POST">
-            <!-- Use Grid Layout with 2 Columns -->
-            <div class="grid grid-cols-2 gap-6">
-                <!-- Left Column (Username and Email) -->
-                <div>
-                    <label for="username" class="block text-sm font-medium text-black">Username</label>
+        <div class="px-8 py-6" style="background: rgba(255, 255, 255, 0.8);">
+            <h2 class="text-center text-xl font-bold text-red-500 mb-4 glowing-text">REGISTER SISTEM EUD SEMEN PADANG</h2>
+            <% if (typeof error !== 'undefined') { %>
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <span class="block sm:inline"><%= error %></span>
+                </div>
+            <% } %>
+            <form class="space-y-4" id="registerForm" action="/register" method="POST">
+                <div class="relative">
                     <input type="text" id="username" name="username" required 
-                        style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                        onmouseover="this.style.background='#434343'" 
-                        onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
+                        class="block w-full pl-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500" 
+                        placeholder="Username">
                 </div>
-
-                <div>
-                    <label for="email" class="block text-sm font-medium text-black">Email</label>
+                <div class="relative">
                     <input type="email" id="email" name="email" required 
-                        style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                        onmouseover="this.style.background='#434343'" 
-                        onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
+                        class="block w-full pl-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500" 
+                        placeholder="Email">
                 </div>
-
-                <!-- Right Column (Password and Confirm Password) -->
-                <div>
-                    <label for="password" class="block text-sm font-medium text-black">Password</label>
+                <div class="relative">
                     <input type="password" id="password" name="password" required 
-                        style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                        onmouseover="this.style.background='#434343'" 
-                        onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
+                        class="block w-full pl-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500" 
+                        placeholder="Password">
                 </div>
-
-                <div>
-                    <label for="confirmPassword" class="block text-sm font-medium text-black">Confirm Password</label>
+                <div class="relative">
                     <input type="password" id="confirmPassword" name="confirmPassword" required 
-                        style="background: rgba(0, 0, 0, 0.22); border: 2px solid #38363654; transition: all 0.50s ease; color: white;" 
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                        onmouseover="this.style.background='#434343'" 
-                        onmouseout="this.style.background='rgba(0, 0, 0, 0.22)'">
+                        class="block w-full pl-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500" 
+                        placeholder="Confirm Password">
                 </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div>
-                <button type="submit" 
-                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300">
-                    Register
-                </button>
-            </div>
-        </form>
-        <div class="mt-4 text-center">
-            <a href="login" class="text-sm text-black-600 hover:text-red-500 transition-all duration-[1000ms] ease-in-out">Back to Login</a>
+                <div>
+                    <button type="submit" 
+                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300">
+                        Register
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
     <script>
         document.getElementById('registerForm').addEventListener('submit', function (e) {
-        e.preventDefault(); // Prevent form from submitting immediately
+        e.preventDefault();
         
-        // Get form values
         const username = document.getElementById('username').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
 
-        // Validate input (example: check if passwords match)
         if (password !== confirmPassword) {
             Swal.fire({
                 icon: 'error',
@@ -108,7 +131,6 @@
             return;
         }
 
-        // Send data to the server
         fetch('/register', {
             method: 'POST',
             headers: {
@@ -120,7 +142,7 @@
                 password: password
             })
         })
-        .then(response => response.json()) // Expecting JSON response
+        .then(response => response.json())
         .then(data => {
             if (data.success) {
                 Swal.fire({
@@ -129,7 +151,6 @@
                     text: `Selamat Datang, ${username}!`,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Redirect to login page or another page
                         window.location.href = '/login';
                     }
                 });
