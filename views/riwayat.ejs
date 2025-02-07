@@ -87,7 +87,7 @@
                             <input type="date" id="date-end" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                         </div>
                         <div>
-                            <button type="button" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover-button focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <button type="button" id="apply-filter-button" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover-button focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                 Terapkan Filter
                             </button>
                         </div>
@@ -179,22 +179,22 @@
             <div>
                 <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
                     <% if (currentPage > 1) { %>
-                        <a href="?page=<%= currentPage - 1 %>" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                        <a href="?page=<%= currentPage - 1 %>&type=<%= type %>&dateStart=<%= dateStart %>&dateEnd=<%= dateEnd %>&search=<%= search %>" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                             <span class="sr-only">Previous</span>
                             <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
                             </svg>
                         </a>
                     <% } %>
-
+            
                     <% for (let i = 1; i <= totalPages; i++) { %>
-                        <a href="?page=<%= i %>" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold <%= i === currentPage ? 'bg-black text-white' : 'text-gray-900' %> ring-1 ring-inset ring-gray-300 hover:bg-red-500 focus:z-20 focus:outline-offset-0">
+                        <a href="?page=<%= i %>&type=<%= type %>&dateStart=<%= dateStart %>&dateEnd=<%= dateEnd %>&search=<%= search %>" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold <%= i === currentPage ? 'bg-black text-white' : 'text-gray-900' %> ring-1 ring-inset ring-gray-300 hover:bg-red-500">
                             <%= i %>
-                        </a>
+                        </a>                        
                     <% } %>
-
+            
                     <% if (currentPage < totalPages) { %>
-                        <a href="?page=<%= currentPage + 1 %>" class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                        <a href="?page=<%= currentPage + 1 %>&type=<%= type %>&dateStart=<%= dateStart %>&dateEnd=<%= dateEnd %>&search=<%= search %>" class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                             <span class="sr-only">Next</span>
                             <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
@@ -209,8 +209,58 @@
     </div>
     <%- include('../include/footer') %>
 
+    <script>    
+    // Fungsi untuk mencari malware sesuai dengan kata kunci
+    function searchMalware(searchTerm) {
+        const params = new URLSearchParams();
+                
+        if (searchTerm) {
+            params.append('search', searchTerm);
+        }
+                
+        // Kirim permintaan pencarian ke server dengan query string
+        window.location.href = '/riwayat?' + params.toString();
+    }
+
+    document.getElementById('apply-filter-button').addEventListener('click', function() {
+        const type = document.getElementById('type-filter').value;
+        const dateStart = document.getElementById('date-start').value;
+        const dateEnd = document.getElementById('date-end').value;
+        const search = document.getElementById('search').value;
+        
+        const params = new URLSearchParams();
+    
+        if (type) params.append('type', type);
+        if (dateStart) params.append('dateStart', dateStart);
+        if (dateEnd) params.append('dateEnd', dateEnd);
+        if (search) params.append('search', search);
+    
+        // Mengarahkan ke URL dengan query parameters
+        window.location.href = '/riwayat?' + params.toString();
+    });
+
+    document.getElementById('search').addEventListener('keydown', function(event) {
+        // Jika tombol yang ditekan adalah Enter
+        if (event.key === 'Enter') {
+            // Ambil nilai dari input search
+            const searchTerm = this.value.trim();
+
+            // Jika ada nilai di input search, perbarui URL dengan parameter search
+            if (searchTerm) {
+                const params = new URLSearchParams(window.location.search);
+                params.set('search', searchTerm);  // Set parameter search dengan nilai baru
+                window.location.search = params.toString(); // Mengarahkan ulang ke URL dengan query parameter baru
+            }
+
+            // Kosongkan input setelah menekan Enter
+            this.value = '';
+            this.focus();
+        }
+    });
+    </script>
+    
     <script>
-       async function deleteRecord(id) {
+    async function deleteRecord(id) {
     // Menampilkan konfirmasi SweetAlert
     const result = await Swal.fire({
         title: 'Apakah Anda yakin?',

@@ -3,42 +3,69 @@ const prisma = new PrismaClient();
 
 const showRiwayat = async (req, res) => {
   try {
-    // Ambil page dan limit dari query parameter, jika tidak ada gunakan default value
-    const page = parseInt(req.query.page) || 1; // Halaman saat ini
-    const limit = 10; // Menampilkan 10 data per halaman
-
-    // Hitung offset untuk pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = 10;
     const offset = (page - 1) * limit;
 
-    // Ambil data MalwareFile yang sudah dianalisis dan relasinya dengan limit dan offset
+    // Ambil filter dari query parameter
+    const type = req.query.type || '';
+    const dateStart = req.query.dateStart || '';
+    const dateEnd = req.query.dateEnd || '';
+    const search = req.query.search || '';  // Ambil parameter pencarian
+
+    // Menyusun query filter untuk Prisma
+    const whereClause = {
+      status: "Analyzed", // hanya data yang dianalisis
+    };
+
+    // Filter berdasarkan jenis malware
+    if (type) {
+      whereClause.malwareType = type;
+    }
+
+    // Filter berdasarkan rentang tanggal
+    if (dateStart && dateEnd) {
+      whereClause.uploadDate = {
+        gte: new Date(dateStart), // Tanggal mulai
+        lte: new Date(dateEnd),   // Tanggal akhir
+      };
+    }
+
+    // Filter berdasarkan pencarian nama
+    if (search) {
+      whereClause.name = {
+        contains: search, // Mencari nama malware yang mengandung string pencarian
+      };
+    }
+
+    // Ambil data malware sesuai filter
     const malwareFiles = await prisma.malwareFile.findMany({
-      where: {
-        status: "Analyzed", // Menambahkan kondisi status "Analyzed"
-      },
+      where: whereClause,
       skip: offset,
       take: limit,
       include: {
-        analysis: true, // Mengambil data relasi analysisResult
+        analysis: true,
       },
     });
 
-    // Hitung total data malware dengan status "Analyzed"
+    // Hitung total data yang sesuai dengan filter
     const totalFiles = await prisma.malwareFile.count({
-      where: {
-        status: "Analyzed", // Hanya menghitung data yang statusnya "Analyzed"
-      },
+      where: whereClause,
     });
-    
-    // Hitung total halaman
+
     const totalPages = Math.ceil(totalFiles / limit);
 
-    // Kirim data ke view 'riwayat'
+    // Kirim data ke view
     res.render("riwayat", {
       activePage: "riwayat",
       malwareFiles,
-      currentPage: page, // Kirim halaman saat ini
-      totalPages, // Kirim total halaman
-      totalFiles, // Kirim total data
+      currentPage: page,
+      totalPages,
+      totalFiles,
+      type, // Kirimkan type ke view
+      dateStart, // Kirimkan dateStart ke view
+      dateEnd, // Kirimkan dateEnd ke view
+      search, // Kirimkan search ke view
     });
   } catch (error) {
     console.log("error", error);

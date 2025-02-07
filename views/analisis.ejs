@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +31,7 @@
             transition: all 0.3s ease-in-out;
         }
 
-        th{
+        th {
             background-color: #d4d4d4;
         }
     </style>
@@ -80,7 +80,7 @@
                             <input id="end-date" type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                         </div>
                         <div>
-                            <button type="button" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <button type="button" id="apply-filter-button" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                 Terapkan Filter
                             </button>
                         </div>
@@ -136,7 +136,7 @@
                 </table>
             </div>
         </div>
-       
+
         <!-- Pagination -->
         <div class="mt-4 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 mx-4 sm:mx-6 lg:mx-8 fade-in">
             <div class="flex flex-1 justify-between sm:hidden">
@@ -184,5 +184,57 @@
         </div>                        
     </div>
     <%- include('../include/footer') %>
+
+    <script>
+    document.getElementById('apply-filter-button').addEventListener('click', function() {
+        const type = document.getElementById('type-filter').value;
+        const dateStart = document.getElementById('start-date').value;
+        const dateEnd = document.getElementById('end-date').value;
+        const search = document.getElementById('search-input').value;
+        
+        const params = new URLSearchParams();
+    
+        if (type) params.append('type', type);
+        if (dateStart) params.append('dateStart', dateStart);
+        if (dateEnd) params.append('dateEnd', dateEnd);
+        if (search) params.append('search', search);
+    
+        // Mengarahkan ke URL dengan query parameters
+        window.location.href = '/analisis?' + params.toString();
+    });
+    </script>
+
+    <script>
+    // Fungsi untuk mencari malware sesuai dengan kata kunci
+    function searchMalware(searchTerm) {
+        const params = new URLSearchParams();
+            
+        if (searchTerm) {
+            params.append('search', searchTerm);
+        }
+            
+    // Kirim permintaan pencarian ke server dengan query string
+    window.location.href = '/analisis?' + params.toString();
+    }
+
+    document.getElementById('search-input').addEventListener('keydown', function(event) {
+            // Jika tombol yang ditekan adalah Enter
+            if (event.key === 'Enter') {
+            // Ambil nilai dari input search
+            const searchTerm = this.value.trim();
+
+            // Jika ada nilai di input search, perbarui URL dengan parameter search
+            if (searchTerm) {
+                const params = new URLSearchParams(window.location.search);
+                params.set('search', searchTerm);  // Set parameter search dengan nilai baru
+                window.location.search = params.toString(); // Mengarahkan ulang ke URL dengan query parameter baru
+            }
+
+            // Kosongkan input setelah menekan Enter
+            this.value = '';
+            this.focus();
+        }
+    });
+    </script>
 </body>
 </html>
