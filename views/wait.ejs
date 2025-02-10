@@ -18,15 +18,20 @@
             <p class="text-sm text-gray-900 mt-4">Kami telah mengirimkan link untuk reset password ke email Anda. Silakan periksa inbox atau folder spam Anda untuk melanjutkan.</p>
         </div>
         <div class="text-center" style="display: flex;">
-            <a href="/auth/login" 
+            <a href="/login" 
                class="text-sm text-red-700 hover:text-blue-500 transition duration-200 ease-in-out ml-2">
                Kembali ke Halaman Login
             </a>
             <p class="text-sm text-black ml-2 mr-2">atau</p>
-            <a href="/auth/login" 
-            class="text-sm text-red-700 hover:text-blue-500 transition duration-200 ease-in-out">
-            kirim ulang link
-         </a>
+            
+            <!-- Form untuk kirim ulang link -->
+            <form action="/resend-reset-link" method="POST">
+                <input type="hidden" name="email" value="<%= email %>"> <!-- Pastikan email dikirim ke backend -->
+                <button type="submit" 
+                    class="text-sm text-red-700 hover:text-blue-500 transition duration-200 ease-in-out">
+                    Kirim Ulang Link
+                </button>
+            </form>
         </div>
     </div>
 </body>

@@ -3,6 +3,8 @@ const express = require("express");
 const router = express.Router();
 const authMiddleware = require('../middlewares/authMiddleware');
 const upload = require('../middlewares/uploadMiddleware');
+const validateEmail = require("../middlewares/validateEmail");
+const forgotPasswordLimiter = require("../middlewares/rateLimiter");
 
 router.get("/", (req, res) => {
   res.redirect("/login");
@@ -25,10 +27,12 @@ router.post("/register", controller16.regcon.register);
 // isi email
 const controller12 = require("../controller/conForgot");
 router.get("/forgotPassword", controller12.showForgot);
+router.post("/forgotPassword", forgotPasswordLimiter, validateEmail, controller12.sendResetLink);
 
 // menampilkan pemberitahuan email dikirim
 const controller13 = require("../controller/conWait");
 router.get("/wait", controller13.showWait);
+router.post("/resend-reset-link", controller13.resendResetLink);
 
 // menampilkan form isi password baru
 const controller14 = require("../controller/conReset");
