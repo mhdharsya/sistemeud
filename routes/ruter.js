@@ -21,7 +21,7 @@ router.post('/login', controller1.authController.login);
 router.get('/logout', controller1.authController.logout);
 
 const controller16 = require("../controller/conRegis");
-router.get("/register", controller16.regcon.showRegis);
+router.get("/register", controller16.regcon.showRegis); 
 router.post("/register", controller16.regcon.register);
 
 // isi email
