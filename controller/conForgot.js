@@ -3,14 +3,18 @@ require('dotenv').config();
 
 // Menggunakan Sendinblue SMTP
 const transporter = nodemailer.createTransport({
-  host: 'smtp-relay.brevo.com', // Host dari tab "SMTP"
-  port: 587, // Port dari tab "SMTP"
+  host: process.env.SMTP_HOST, // Host dari tab "SMTP"
+  port: process.env.SMTP_PORT, // Port dari tab "SMTP"
   auth: {
-    user: '8557db001@smtp-brevo.com', // Login dari tab "SMTP"
-    pass: 'xsmtpsib-4ae391ec5678cf0cf8c3516ae6dd3814eaa198bbbc8920255f644140a42bf948-2LZX7pD0xaPs4zgv', // Ganti dengan Master Password atau SMTP Key dari tab "SMTP"
+    user: process.env.SMTP_USER, // Login dari tab "SMTP"
+    pass: process.env.SMTP_PASS, // Ganti dengan Master Password atau SMTP Key dari tab "SMTP"
   },
 });
 
+console.log(process.env.SMTP_HOST);
+console.log(process.env.SMTP_PORT);
+console.log(process.env.SMTP_USER);
+console.log(process.env.SMTP_PASS);
 
 const showForgot = async (req, res) => {
   try {
