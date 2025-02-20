@@ -31,7 +31,7 @@ router.post("/forgotPassword", forgotPasswordLimiter, validateEmail, controller1
 
 // menampilkan pemberitahuan email dikirim
 const controller13 = require("../controller/conWait");
-router.get("/wait", controller13.showWait);
+router.get("/wait",authMiddleware, controller13.showWait);
 router.post("/resend-reset-link", controller13.resendResetLink);
 
 // menampilkan form isi password baru

@@ -11,10 +11,10 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-console.log(process.env.SMTP_HOST);
-console.log(process.env.SMTP_PORT);
-console.log(process.env.SMTP_USER);
-console.log(process.env.SMTP_PASS);
+// console.log(process.env.SMTP_HOST);
+// console.log(process.env.SMTP_PORT);
+// console.log(process.env.SMTP_USER);
+// console.log(process.env.SMTP_PASS);
 
 const showForgot = async (req, res) => {
   try {
