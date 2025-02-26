@@ -14,8 +14,7 @@ model User {
   email     String    @unique // Email pengguna (harus unik)
   createdAt DateTime  @default(now()) // Tanggal dan waktu pembuatan akun
   updatedAt DateTime  @updatedAt // Tanggal dan waktu pembaruan akun terakhir
-  uploads   MalwareFile[] @relation("UserUploads") // Relasi dengan file malware yang diupload
-  logs      SystemLog[] // Relasi dengan log sistem yang mencatat aktivitas pengguna
+  uploads   MalwareFile[] // Relasi dengan file malware yang diupload
 }
 
 model MalwareFile {
@@ -30,9 +29,8 @@ model MalwareFile {
   riskLevel   RiskLevel
   status      AnalysisStatus
   analysis    AnalysisResult?
-  actions     FileAction[]
 
-  user        User      @relation("UserUploads", fields: [uploadedBy], references: [id]) // Relasi balik ke User
+  user        User      @relation(fields: [uploadedBy], references: [id]) // Relasi balik ke User
 }
 
 enum MalwareType {
@@ -64,53 +62,4 @@ model AnalysisResult {
   detectedBehaviors String
   recommendations  String
   resultStatus     AnalysisStatus
-  report           Report?
-
-}
-
-model SystemLog {
-  id        Int       @id @default(autoincrement())
-  userId    Int       // ID dari User yang membuat log
-  action    String
-  timestamp DateTime  @default(now())
-  description String
-
-  user      User      @relation(fields: [userId], references: [id]) // Relasi balik ke User
-}
-
-model MalwareTypeTable {
-  id        Int       @id @default(autoincrement())
-  typeName  String
-}
-
-model RiskLevelTable {
-  id        Int       @id @default(autoincrement())
-  levelName String
-}
-
-model FileAction {
-  id          Int       @id @default(autoincrement())
-  malwareFile MalwareFile @relation(fields: [malwareFileId], references: [id])
-  malwareFileId Int
-  actionType  FileActionType
-  actionDate  DateTime  @default(now())
-  reason      String
-}
-
-enum FileActionType {
-  Delete
-  Restore
-}
-
-model Report {
-  id          Int       @id @default(autoincrement())
-  analysisResult AnalysisResult @relation(fields: [analysisResultId], references: [id])
-  analysisResultId Int       @unique // Menambahkan @unique karena ini relasi satu-ke-satu
-  reportType  ReportType
-  reportPath  String
-}
-
-enum ReportType {
-  PDF
-  CSV
 }
