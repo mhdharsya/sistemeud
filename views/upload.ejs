@@ -51,7 +51,7 @@
                             <label for="malwareFile" class="font-medium text-red-600 hover:text-red-200 cursor-pointer">
                                 browse
                             </label>
-                            <input type="file" id="malwareFile" name="file" class="hidden" onchange="document.getElementById('fileName').textContent = Array.from(this.files).map(file => file.name).join(', ')" multiple />
+                            <input type="file" id="malwareFile" name="file" class="hidden" accept=".zip,.rar,.tar,.7z,application/zip,application/x-rar-compressed,application/x-tar,application/x-7z-compressed" onchange="document.getElementById('fileName').textContent = Array.from(this.files).map(file => file.name).join(', ')" multiple />
                         </p>
                         <p id="fileName" class="mt-2 text-sm text-gray-600"></p>
                     </div>
@@ -112,6 +112,8 @@
                         title: 'File berhasil diupload!',
                         text: result.message || 'File Anda telah berhasil di-upload dan dianalisis.',
                         showConfirmButton: true
+                    }).then(() => {
+                        window.location.reload();
                     });
                 } else {
                     // Jika ada error di server
@@ -120,6 +122,8 @@
                         title: 'Terjadi Kesalahan',
                         text: result.message || 'Gagal meng-upload file.',
                         showConfirmButton: true
+                    }).then(() => {
+                        window.location.reload();
                     });
                 }
             } catch (error) {
@@ -129,6 +133,8 @@
                     title: 'Terjadi Kesalahan',
                     text: 'Tidak dapat menghubungi server. Coba lagi nanti.',
                     showConfirmButton: true
+                }).then(() => {
+                        window.location.href = '/upload';
                 });
             }
         });

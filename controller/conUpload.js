@@ -42,7 +42,7 @@ exports.uploadMalware = async (req, res) => {
       // Panggil fungsi create dari model untuk menyimpan data
       await Malware.create(file.originalname, fileHash, file.size, file.mimetype, user_id, status, malwareType, riskLevel);
     }
-
+    
     res.status(201).json({ message: 'File uploaded successfully' });
   } catch (error) {
     console.error('Error uploading file:', error);
